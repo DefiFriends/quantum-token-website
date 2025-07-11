@@ -1,0 +1,232 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Quantum Theme */
+:root {
+--quantum-blue: #0080FF;
+--quantum-purple: #8A2BE2;
+--quantum-silver: #C0C0C0;
+--quantum-dark: #1a1a2e;
+--quantum-light: #f8fafc;
+}
+
+/* Base body styling */
+body {
+background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+min-height: 100vh;
+position: relative;
+overflow-x: hidden;
+}
+
+/* Quantum Animations */
+@keyframes quantumFloat {
+0%, 100% {
+transform: translateY(0px) rotate(0deg);
+opacity: 0.7;
+}
+50% {
+transform: translateY(-30px) rotate(180deg);
+opacity: 1;
+}
+}
+
+@keyframes quantumGlow {
+0%, 100% {
+box-shadow: 0 0 20px rgba(0, 128, 255, 0.5);
+filter: brightness(1);
+}
+50% {
+box-shadow: 0 0 40px rgba(138, 43, 226, 0.8);
+filter: brightness(1.2);
+}
+}
+
+@keyframes quantumPulse {
+0%, 100% { transform: scale(1); }
+50% { transform: scale(1.05); }
+}
+
+@keyframes quantum-particle-float {
+0% {
+transform: translateY(0) translateX(0);
+opacity: 0;
+}
+10% {
+opacity: 1;
+}
+90% {
+opacity: 1;
+}
+100% {
+transform: translateY(-100vh) translateX(50px);
+opacity: 0;
+}
+}
+
+/* Animation classes */
+.quantum-float {
+animation: quantumFloat 6s ease-in-out infinite;
+}
+
+.quantum-glow {
+animation: quantumGlow 3s ease-in-out infinite;
+}
+
+.quantum-pulse {
+animation: quantumPulse 2s ease-in-out infinite;
+}
+
+.quantum-particle {
+animation: quantumParticle 8s linear infinite;
+}
+
+/* Gradient backgrounds */
+.quantum-gradient {
+background: linear-gradient(135deg, var(--quantum-blue), var(--quantum-purple));
+}
+
+.quantum-gradient-subtle {
+background: linear-gradient(135deg, rgba(0, 128, 255, 0.1), rgba(138, 43, 226, 0.1));
+}
+
+.quantum-text-gradient {
+background: linear-gradient(135deg, var(--quantum-blue), var(--quantum-purple));
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+}
+
+/* Glassmorphism effects */
+.quantum-glass {
+background: rgba(255, 255, 255, 0.05);
+backdrop-filter: blur(10px);
+border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Quantum button styles */
+.quantum-button {
+background: linear-gradient(135deg, var(--quantum-blue), var(--quantum-purple));
+border: none;
+border-radius: 50px;
+padding: 12px 30px;
+color: white;
+font-weight: 600;
+cursor: pointer;
+transition: all 0.3s ease;
+position: relative;
+overflow: hidden;
+}
+
+.quantum-button:hover {
+transform: translateY(-2px);
+box-shadow: 0 10px 30px rgba(0, 128, 255, 0.3);
+}
+
+.quantum-button:before {
+content: '';
+position: absolute;
+top: 0;
+left: -100%;
+width: 100%;
+height: 100%;
+background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+transition: left 0.5s;
+}
+
+.quantum-button:hover:before {
+left: 100%;
+}
+
+/* Particle container */
+.quantum-particles {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+pointer-events: none;
+z-index: 1;
+}
+
+.quantum-particles .particle {
+position: absolute;
+width: 4px;
+height: 4px;
+background: var(--quantum-blue);
+border-radius: 50%;
+opacity: 0.7;
+}
+
+/* Section spacing */
+.quantum-section {
+padding: 100px 0;
+position: relative;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+width: 8px;
+}
+
+::-webkit-scrollbar-track {
+background: var(--quantum-dark);
+}
+
+::-webkit-scrollbar-thumb {
+background: linear-gradient(135deg, var(--quantum-blue), var(--quantum-purple));
+border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+background: linear-gradient(135deg, var(--quantum-purple), var(--quantum-blue));
+}
+
+/* Responsive text */
+@media (max-width: 768px) {
+.quantum-section {
+padding: 60px 0;
+}
+}
+
+/* Loading animation */
+.quantum-loading {
+display: inline-block;
+width: 40px;
+height: 40px;
+border: 3px solid rgba(0, 128, 255, 0.3);
+border-radius: 50%;
+border-top-color: var(--quantum-blue);
+animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+to { transform: rotate(360deg); }
+}
+
+/* Quantum card effects */
+.quantum-card {
+background: rgba(255, 255, 255, 0.05);
+backdrop-filter: blur(10px);
+border: 1px solid rgba(0, 128, 255, 0.2);
+border-radius: 20px;
+padding: 30px;
+transition: all 0.3s ease;
+}
+
+.quantum-card:hover {
+transform: translateY(-10px);
+border-color: rgba(0, 128, 255, 0.5);
+box-shadow: 0 20px 40px rgba(0, 128, 255, 0.1);
+}
+
+/* Text effects */
+.quantum-text-shadow {
+text-shadow: 0 0 20px rgba(0, 128, 255, 0.5);
+}
+
+.quantum-title {
+font-family: 'Orbitron', monospace;
+font-weight: 700;
+letter-spacing: 2px;
+}
