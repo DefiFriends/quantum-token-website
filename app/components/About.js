@@ -39,7 +39,7 @@ className="text-center mb-16"
 <span className="quantum-text-gradient">The Quantum Revolution</span>
 </h2>
 <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-We're not just another meme coin. We're pioneering the first cryptocurrency
+We&apos;re not just another meme coin.  We&apos;re pioneering the first cryptocurrency
 that uses real quantum mechanics principles to create revolutionary DeFi experiences.
 </p>
 </motion.div>
@@ -76,8 +76,8 @@ In our ecosystem, your staking rewards exist in quantum superposition until you 
 </p>
 <div className="bg-gradient-to-r from-blue-500/20 to-purple-500/20 p-6 rounded-lg">
 <p className="text-sm text-gray-400 italic">
-"Just as observing a quantum particle collapses its wave function into reality,
-participating in our ecosystem collapses infinite possibilities into real rewards."
+&quot;Just as observing a quantum particle collapses its wave function into reality,
+participating in our ecosystem collapses infinite possibilities into real rewards.&quot;
 </p>
 </div>
 </div>

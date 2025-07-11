@@ -21,7 +21,7 @@ transition={{ duration: 0.8 }}
 
 <h2 className="text-2xl font-bold text-white mb-4">1. Information We Collect</h2>
 <p className="text-gray-300 mb-6">
-Quantum Token ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your information when you use our website and services.
+Quantum Token (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your information when you use our website and services.
 </p>
 
 <h2 className="text-2xl font-bold text-white mb-4">2. How We Use Your Information</h2>
