@@ -26,7 +26,7 @@ By accessing and using the Quantum Token (QTM) website and services, you accept 
 
 <h2 className="text-2xl font-bold text-white mb-4">2. Use License</h2>
 <p className="text-gray-300 mb-6">
-Permission is granted to temporarily download one copy of the materials on Quantum Token's website for personal, non-commercial transitory viewing only.
+Permission is granted to temporarily download one copy of the materials on Quantum Token&apos;s website for personal, non-commercial transitory viewing only.
 </p>
 
 <h2 className="text-2xl font-bold text-white mb-4">3. Disclaimer</h2>
@@ -43,12 +43,12 @@ Permission is granted to temporarily download one copy of the materials on Quant
 
 <h2 className="text-2xl font-bold text-white mb-4">4. Limitations</h2>
 <p className="text-gray-300 mb-6">
-In no event shall Quantum Token or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on Quantum Token's website.
+In no event shall Quantum Token or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on Quantum Token&apos;s website.
 </p>
 
 <h2 className="text-2xl font-bold text-white mb-4">5. Governing Law</h2>
 <p className="text-gray-300 mb-6">
-These terms and conditions are governed by and construed in accordance with the laws of [Your Jurisdiction] and you irrevocably submit to the exclusive jurisdiction of the courts in that state or location.
+These terms and conditions are governed by and construed in accordance with the laws of [Your Jurisdiction] you irrevocably submit to the exclusive jurisdiction of the courts in that state or location.
 </p>
 
 <h2 className="text-2xl font-bold text-white mb-4">6. Contact Information</h2>

@@ -26,7 +26,7 @@ It will include detailed explanations of our quantum entanglement protocols, cro
 </p>
 <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-6">
 <p className="text-blue-300 font-semibold">
-📄 The whitepaper will be available before our token launch. Join our community to be notified when it's released!
+📄 The whitepaper will be available before our token launch. Join our community to be notified when it$apos;s released!
 </p>
 </div>
 </div>
