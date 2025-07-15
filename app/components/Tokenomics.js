@@ -24,7 +24,7 @@ const distribution = [
 
 const calculateRewards = () => {
 const multiplier = lockPeriod === 30 ? 1 : lockPeriod === 90 ? 1.25 : 1.5
-const baseAPY = 1.44
+const baseAPY = 0.12
 const annualReward = stakingAmount * baseAPY * multiplier
 const monthlyReward = annualReward / 12
 return Math.floor(monthlyReward)
