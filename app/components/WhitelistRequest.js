@@ -75,7 +75,8 @@ throw new Error('Submission failed')
 }
 } catch (error) {
     console.log('Discord notification failed:', error)
-
+}
+{ 
 // Fallback: Store in localStorage for manual processing
 const requests = JSON.parse(localStorage.getItem('whitelistRequests') || '[]')
 requests.push({
@@ -85,10 +86,10 @@ id: Date.now()
 })
 localStorage.setItem('whitelistRequests', JSON.stringify(requests))
 setSubmitted(true)
-} finally {
+} try {
 setIsSubmitting(false)
 }
-
+finally {}
 }
 
 const sendToDiscord = async (data) => {
