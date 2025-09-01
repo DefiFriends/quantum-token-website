@@ -1,12 +1,11 @@
-
 'use client'
-import { ethers } from 'ethers'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { motion } from 'framer-motion'
+import { ethers } from 'ethers'
 
 // Your deployed contract address and ABI
-const CONTRACT_ADDRESS = "0x46D1Dc0753F202b70851E195c1d14CEA4a7D78b3" // Replace with your actual address
-const SEPOLIA_CHAIN_ID = "0xaa36a7" // Sepolia testnet
+const CONTRACT_ADDRESS = "0x46D1Dc0753F202b70851E195c1d14CEA4a7D78b3"
+const SEPOLIA_CHAIN_ID = "0xaa36a7" // Sepolia testnet"
 
 // Fixed ABI - includes uncertaintyGenerated field
 const CONTRACT_ABI = [
@@ -64,88 +63,20 @@ const [stake365Amount, setStake365Amount] = useState('')
 const [buyAmount, setBuyAmount] = useState('')
 const [entangleAmount, setEntangleAmount] = useState('')
 
-useEffect(() => {
-checkConnection()
-}, [checkConnection])
-
-useEffect(() => {
-if (account && contract) {
-loadContractData()
-}
-}, [account, contract, loadContractData])
-
-const checkConnection = async () => {
+const checkConnection = useCallback(async () => {
 if (typeof window.ethereum !== 'undefined') {
 try {
 const accounts = await window.ethereum.request({ method: 'eth_accounts' })
 if (accounts.length > 0) {
 await connectWallet()
 }
-} catch (error) {
-console.error('Error checking connection:', error)
+} catch (connectionError) {
+console.error('Error checking connection:', connectionError)
 }
 }
-}
+}, [])
 
-const connectWallet = async () => {
-if (typeof window.ethereum === 'undefined') {
-setError('MetaMask is not installed. Please install MetaMask to continue.')
-return
-}
-
-try {
-setLoading(true)
-setError('')
-
-// Request account access
-const accounts = await window.ethereum.request({
-method: 'eth_requestAccounts'
-})
-
-// Switch to Sepolia network
-try {
-await window.ethereum.request({
-method: 'wallet_switchEthereumChain',
-params: [{ chainId: SEPOLIA_CHAIN_ID }],
-})
-} catch (switchError) {
-if (switchError.code === 4902) {
-await window.ethereum.request({
-method: 'wallet_addEthereumChain',
-params: [{
-chainId: SEPOLIA_CHAIN_ID,
-chainName: 'Sepolia Testnet',
-nativeCurrency: {
-name: 'ETH',
-symbol: 'ETH',
-decimals: 18
-},
-rpcUrls: ['https://sepolia.infura.io/v3/'],
-blockExplorerUrls: ['https://sepolia.etherscan.io/']
-}]
-})
-}
-}
-
-setAccount(accounts[0])
-
-// Initialize contract
-if (window.ethereum) {
-const provider = new ethers.BrowserProvider(window.ethereum)
-const signer = await provider.getSigner()
-const contractInstance = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer)
-setContract(contractInstance)
-setSuccess('Wallet connected successfully!')
-}
-} catch (error) {
-setError(`Connection failed: ${error.message}`)
-} finally {
-setLoading(false)
-}
-
-}
-
-const loadContractData = async () => {
+const loadContractData = useCallback(async () => {
 if (!contract || !account) return
 
 try {
@@ -198,15 +129,81 @@ setEntanglementInfo({
 entangledAmount: ethers.formatEther(entanglementData[0]),
 pendingRewards: ethers.formatEther(entanglementData[1])
 })
-} 
-
-catch (error) {
-console.log("No entanglement data or cross-chain not enabled", error)
+} catch (entanglementError) {
+console.log("No entanglement data or cross-chain not enabled:", entanglementError)
 setEntanglementInfo(null)
 }
 
-} catch (error) {
-setError(`Failed to load contract data: ${error.message}`)
+} catch (loadError) {
+setError(`Failed to load contract data: ${loadError.message}`)
+} finally {
+setLoading(false)
+}
+
+}, [contract, account])
+
+useEffect(() => {
+checkConnection()
+}, [checkConnection])
+
+useEffect(() => {
+if (account && contract) {
+loadContractData()
+}
+}, [account, contract, loadContractData])
+
+const connectWallet = async () => {
+if (typeof window.ethereum === 'undefined') {
+setError('MetaMask is not installed. Please install MetaMask to continue.')
+return
+}
+
+try {
+setLoading(true)
+setError('')
+
+// Request account access
+const accounts = await window.ethereum.request({
+method: 'eth_requestAccounts'
+})
+
+// Switch to Sepolia network
+try {
+await window.ethereum.request({
+method: 'wallet_switchEthereumChain',
+params: [{ chainId: SEPOLIA_CHAIN_ID }],
+})
+} catch (switchError) {
+if (switchError.code === 4902) {
+await window.ethereum.request({
+method: 'wallet_addEthereumChain',
+params: [{
+chainId: SEPOLIA_CHAIN_ID,
+chainName: 'Sepolia Testnet',
+nativeCurrency: {
+name: 'ETH',
+symbol: 'ETH',
+decimals: 18
+},
+rpcUrls: ['https://sepolia.infura.io/v3/'],
+blockExplorerUrls: ['https://sepolia.etherscan.io/']
+}]
+})
+}
+}
+
+setAccount(accounts[0])
+
+// Initialize contract
+if (window.ethereum) {
+const provider = new ethers.BrowserProvider(window.ethereum)
+const signer = await provider.getSigner()
+const contractInstance = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer)
+setContract(contractInstance)
+setSuccess('Wallet connected successfully!')
+}
+} catch (walletError) {
+setError(`Connection failed: ${walletError.message}`)
 } finally {
 setLoading(false)
 }
@@ -230,8 +227,8 @@ setSuccess('Presale purchase confirmed!')
 
 await loadContractData()
 setBuyAmount('')
-} catch (error) {
-setError(`Presale purchase failed: ${error.message}`)
+} catch (buyError) {
+setError(`Presale purchase failed: ${buyError.message}`)
 } finally {
 setLoading(false)
 }
@@ -261,8 +258,8 @@ if (duration === 90) setStake90Amount('')
 if (duration === 180) setStake180Amount('')
 if (duration === 365) setStake365Amount('')
 
-} catch (error) {
-setError(`Staking failed: ${error.message}`)
+} catch (stakeError) {
+setError(`Staking failed: ${stakeError.message}`)
 } finally {
 setLoading(false)
 }
@@ -282,8 +279,8 @@ await tx.wait()
 setSuccess('Tokens unstaked successfully!')
 
 await loadContractData()
-} catch (error) {
-setError(`Unstaking failed: ${error.message}`)
+} catch (unstakeError) {
+setError(`Unstaking failed: ${unstakeError.message}`)
 } finally {
 setLoading(false)
 }
@@ -305,8 +302,8 @@ setSuccess('Quantum entanglement created successfully!')
 
 await loadContractData()
 setEntangleAmount('')
-} catch (error) {
-setError(`Quantum entanglement failed: ${error.message}`)
+} catch (entanglementError) {
+setError(`Quantum entanglement failed: ${entanglementError.message}`)
 } finally {
 setLoading(false)
 }
@@ -326,8 +323,8 @@ await tx.wait()
 setSuccess('Entangled rewards claimed successfully!')
 
 await loadContractData()
-} catch (error) {
-setError(`Claiming rewards failed: ${error.message}`)
+} catch (claimError) {
+setError(`Claiming rewards failed: ${claimError.message}`)
 } finally {
 setLoading(false)
 }
@@ -347,8 +344,8 @@ await tx.wait()
 setSuccess('Quantum entanglement broken successfully!')
 
 await loadContractData()
-} catch (error) {
-setError(`Breaking entanglement failed: ${error.message}`)
+} catch (breakError) {
+setError(`Breaking entanglement failed: ${breakError.message}`)
 } finally {
 setLoading(false)
 }
@@ -375,21 +372,21 @@ return '1.0x'
 }
 
 // Pending Rewards Component
-const PendingRewards = ({ contract, account, stakeIndex, stake }) => {
+const PendingRewards = ({ contract: rewardContract, account: rewardAccount, stakeIndex, stake }) => {
 const [pendingReward, setPendingReward] = useState('0')
 
 useEffect(() => {
 const fetchPendingReward = async () => {
-if (!contract || !account || stake.claimed) {
+if (!rewardContract || !rewardAccount || stake.claimed) {
 setPendingReward('0')
 return
 }
 
 try {
-const reward = await contract.calculatePendingReward(account, stakeIndex)
+const reward = await rewardContract.calculatePendingReward(rewardAccount, stakeIndex)
 setPendingReward(ethers.formatEther(reward))
-} catch (error) {
-console.log("Failed to fetch pending reward:", error)
+} catch (rewardError) {
+console.log("Failed to fetch pending reward:", rewardError)
 setPendingReward('0')
 }
 }
@@ -398,7 +395,7 @@ fetchPendingReward()
 const interval = setInterval(fetchPendingReward, 30000) // Update every 30 seconds
 
 return () => clearInterval(interval)
-}, [contract, account, stakeIndex, stake.claimed])
+}, [rewardContract, rewardAccount, stakeIndex, stake.claimed])
 
 return (
 <span className="text-yellow-400">
@@ -535,7 +532,7 @@ type="number"
 placeholder="Amount in ETH"
 value={buyAmount}
 onChange={(e) => setBuyAmount(e.target.value)}
-className="w-full p-3 bg-gray-800/50 border border-blue-500/30 rounded-full text-white"
+className="w-full p-3 bg-gray-800/50 border border-blue-500/30 rounded-lg text-white"
 step="0.01"
 />
 
@@ -572,7 +569,7 @@ type="number"
 placeholder="Amount"
 value={stake30Amount}
 onChange={(e) => setStake30Amount(e.target.value)}
-className="w-full p-2 mb-3 bg-gray-800/50 border border-blue-500/30 rounded-full text-white text-sm"
+className="w-full p-2 mb-3 bg-gray-800/50 border border-blue-500/30 rounded text-white text-sm"
 />
 <motion.button
 onClick={() => stakeTokens(stake30Amount, 30)}
@@ -602,7 +599,7 @@ type="number"
 placeholder="Amount"
 value={stake90Amount}
 onChange={(e) => setStake90Amount(e.target.value)}
-className="w-full p-2 mb-3 bg-gray-800/50 border border-green-500/30 rounded-full text-white text-sm"
+className="w-full p-2 mb-3 bg-gray-800/50 border border-green-500/30 rounded text-white text-sm"
 />
 <motion.button
 onClick={() => stakeTokens(stake90Amount, 90)}
@@ -632,7 +629,7 @@ type="number"
 placeholder="Amount"
 value={stake180Amount}
 onChange={(e) => setStake180Amount(e.target.value)}
-className="w-full p-2 mb-3 bg-gray-800/50 border border-purple-500/30 rounded-full text-white text-sm"
+className="w-full p-2 mb-3 bg-gray-800/50 border border-purple-500/30 rounded text-white text-sm"
 />
 <motion.button
 onClick={() => stakeTokens(stake180Amount, 180)}
@@ -662,7 +659,7 @@ type="number"
 placeholder="Amount"
 value={stake365Amount}
 onChange={(e) => setStake365Amount(e.target.value)}
-className="w-full p-2 mb-3 bg-gray-800/50 border border-yellow-500/30 rounded-full text-white text-sm"
+className="w-full p-2 mb-3 bg-gray-800/50 border border-yellow-500/30 rounded text-white text-sm"
 />
 <motion.button
 onClick={() => stakeTokens(stake365Amount, 365)}
@@ -687,6 +684,7 @@ className="quantum-card mb-8"
 <p className="text-sm text-gray-400 mb-4">
 Lock QTM tokens for PARADOX integration (150% rewards)
 </p>
+
 <div className="grid md:grid-cols-2 gap-6">
 {/* Create Entanglement */}
 <div>
@@ -697,12 +695,13 @@ type="number"
 placeholder="Amount to entangle"
 value={entangleAmount}
 onChange={(e) => setEntangleAmount(e.target.value)}
-className="w-[60%] p-3 bg-gray-800/50 border border-blue-500/30 rounded-full text-white"
+className="flex-1 p-3 bg-gray-800/50 border border-blue-500/30 rounded-lg text-white"
 />
+
 <motion.button
 onClick={createEntanglement}
 disabled={loading || !entangleAmount}
-className="quantum-button w-[40%]"
+className="quantum-button px-6"
 whileHover={{ scale: 1.02 }}
 whileTap={{ scale: 0.98 }}
 >
