@@ -74,6 +74,8 @@ await sendToDiscord(formData)
 throw new Error('Submission failed')
 }
 } catch (error) {
+    console.log('Discord notification failed:', error)
+
 // Fallback: Store in localStorage for manual processing
 const requests = JSON.parse(localStorage.getItem('whitelistRequests') || '[]')
 requests.push({
@@ -140,7 +142,7 @@ Thank you for your interest in the Quantum Token presale. Your whitelist request
 <h3 className="font-semibold mb-2 text-blue-400">What happens next?</h3>
 <ul className="text-sm text-gray-300 space-y-1 text-left">
 <li>• Our team will review your application within 24-48 hours</li>
-<li>• You'll receive an email confirmation once approved</li>
+<li>• You&apos;ll receive an email confirmation once approved</li>
 <li>• Follow our social media for presale announcements</li>
 <li>• Join our community channels for updates</li>
 </ul>
