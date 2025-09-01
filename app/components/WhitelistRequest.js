@@ -53,7 +53,7 @@ setIsSubmitting(true)
 setError('')
 
 try {
-// For now, we&apos; ll simulate submission - replace with actual API call
+// For now, we&apos;ll simulate submission - replace with actual API call
 const response = await fetch('/api/whitelist-request', {
 method: 'POST',
 headers: {

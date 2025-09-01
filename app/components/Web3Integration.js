@@ -66,13 +66,13 @@ const [entangleAmount, setEntangleAmount] = useState('')
 
 useEffect(() => {
 checkConnection()
-}, [])
+}, [checkConnection])
 
 useEffect(() => {
 if (account && contract) {
 loadContractData()
 }
-}, [account, contract])
+}, [account, contract, loadContractData])
 
 const checkConnection = async () => {
 if (typeof window.ethereum !== 'undefined') {
@@ -198,8 +198,10 @@ setEntanglementInfo({
 entangledAmount: ethers.formatEther(entanglementData[0]),
 pendingRewards: ethers.formatEther(entanglementData[1])
 })
-} catch (error) {
-console.log("No entanglement data or cross-chain not enabled")
+} 
+
+catch (error) {
+console.log("No entanglement data or cross-chain not enabled", error)
 setEntanglementInfo(null)
 }
 
@@ -387,6 +389,7 @@ try {
 const reward = await contract.calculatePendingReward(account, stakeIndex)
 setPendingReward(ethers.formatEther(reward))
 } catch (error) {
+console.log("Failed to fetch pending reward:", error)
 setPendingReward('0')
 }
 }
