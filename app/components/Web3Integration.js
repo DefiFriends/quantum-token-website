@@ -784,7 +784,7 @@ className="quantum-card"
 <tr key={index} className="border-b border-gray-700/30">
 <td className="p-2">{parseFloat(stake.amount).toFixed(2)} QTM</td>
 <td className="p-2">{stake.lockDuration} days</td>
-<td className="p-2">{getAPYForDuration(stake.lockDuration)}</td>
+<td className="p-2">{getAPYForDuration(stake.lockDuration)} ({getMultiplierText(stake.lockDuration)})</td>
 <td className="p-2">
 <PendingRewards
 contract={contract}
