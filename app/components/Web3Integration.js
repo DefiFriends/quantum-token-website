@@ -532,7 +532,7 @@ type="number"
 placeholder="Amount in ETH"
 value={buyAmount}
 onChange={(e) => setBuyAmount(e.target.value)}
-className="w-full p-3 bg-gray-800/50 border border-blue-500/30 rounded-lg text-white"
+className="w-full p-3 bg-gray-800/50 border border-blue-500/30 rounded-full text-white"
 step="0.01"
 />
 
@@ -569,7 +569,7 @@ type="number"
 placeholder="Amount"
 value={stake30Amount}
 onChange={(e) => setStake30Amount(e.target.value)}
-className="w-full p-2 mb-3 bg-gray-800/50 border border-blue-500/30 rounded text-white text-sm"
+className="w-full p-2 mb-3 bg-gray-800/50 border border-blue-500/30 rounded-full text-white text-sm"
 />
 <motion.button
 onClick={() => stakeTokens(stake30Amount, 30)}
@@ -599,7 +599,7 @@ type="number"
 placeholder="Amount"
 value={stake90Amount}
 onChange={(e) => setStake90Amount(e.target.value)}
-className="w-full p-2 mb-3 bg-gray-800/50 border border-green-500/30 rounded text-white text-sm"
+className="w-full p-2 mb-3 bg-gray-800/50 border border-green-500/30 rounded-full text-white text-sm"
 />
 <motion.button
 onClick={() => stakeTokens(stake90Amount, 90)}
@@ -629,7 +629,7 @@ type="number"
 placeholder="Amount"
 value={stake180Amount}
 onChange={(e) => setStake180Amount(e.target.value)}
-className="w-full p-2 mb-3 bg-gray-800/50 border border-purple-500/30 rounded text-white text-sm"
+className="w-full p-2 mb-3 bg-gray-800/50 border border-purple-500/30 rounded-full text-white text-sm"
 />
 <motion.button
 onClick={() => stakeTokens(stake180Amount, 180)}
@@ -659,7 +659,7 @@ type="number"
 placeholder="Amount"
 value={stake365Amount}
 onChange={(e) => setStake365Amount(e.target.value)}
-className="w-full p-2 mb-3 bg-gray-800/50 border border-yellow-500/30 rounded text-white text-sm"
+className="w-full p-2 mb-3 bg-gray-800/50 border border-yellow-500/30 rounded-full text-white text-sm"
 />
 <motion.button
 onClick={() => stakeTokens(stake365Amount, 365)}
@@ -695,13 +695,13 @@ type="number"
 placeholder="Amount to entangle"
 value={entangleAmount}
 onChange={(e) => setEntangleAmount(e.target.value)}
-className="flex-1 p-3 bg-gray-800/50 border border-blue-500/30 rounded-lg text-white"
+className="flex-1 p-3 bg-gray-800/50 border border-blue-500/30 rounded-full text-white"
 />
 
 <motion.button
 onClick={createEntanglement}
 disabled={loading || !entangleAmount}
-className="quantum-button px-6"
+className="quantum-button w-[40%]"
 whileHover={{ scale: 1.02 }}
 whileTap={{ scale: 0.98 }}
 >
