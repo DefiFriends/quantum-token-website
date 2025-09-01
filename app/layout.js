@@ -11,12 +11,16 @@ description: 'The first quantum-powered meme coin with real utility. Revolutiona
 keywords: 'quantum, defi, cryptocurrency, staking, blockchain, quantum physics',
 }
 
+import { ThemeProvider } from './components/ThemeProvider'
+
 export default function RootLayout({ children }) {
 return (
 <html lang="en" className={`${inter.variable} ${orbitron.variable}`}>
 <body className="font-inter">
+<ThemeProvider>
 <QuantumParticles />
 {children}
+</ThemeProvider>
 </body>
 </html>
 )

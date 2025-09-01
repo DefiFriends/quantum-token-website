@@ -18,6 +18,8 @@ const menuItems = [
 { name: 'Home', href: 'home' },
 { name: 'About', href: 'about' },
 { name: 'Tokenomics', href: 'tokenomics' },
+{ name: 'Web3 Interface', href: 'web3' },
+{ name: 'Whitepaper', href: 'whitepaper' },
 { name: 'Roadmap', href: 'roadmap' },
 { name: 'Community', href: 'community' },
 ]
@@ -46,10 +48,10 @@ whileHover={{ scale: 1.05 }}
 onClick={() => scrollToSection('home')}
 >
 <div className="w-10 h-10 quantum-glow rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold">
-Q
+QTM
 </div>
 <span className="text-xl font-orbitron font-bold quantum-text-gradient">
-QUANTUM
+QUANTUM TOKEN
 </span>
 </motion.div>
 

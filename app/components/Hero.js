@@ -80,7 +80,7 @@ export default function Hero() {
           transition={{ duration: 1, delay: 0.8 }}
           >
             <motion.button
-              onClick={() => window.open('https://discord.gg/9fZXJ62V', '_blank')}
+              onClick={() => window.open('https://discord.gg/9G5ZDEGJw7', '_blank')}
             className="quantum-button text-lg px-8 py-4"
               whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}

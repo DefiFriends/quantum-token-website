@@ -230,3 +230,84 @@ font-family: 'Orbitron', monospace;
 font-weight: 700;
 letter-spacing: 2px;
 }
+
+/* Light theme variables */
+html.light {
+--quantum-bg: #ffffff;
+--quantum-text: #1a1a2e;
+--quantum-text-secondary: #4a5568;
+--quantum-card-bg: rgba(255, 255, 255, 0.8);
+--quantum-border: rgba(0, 128, 255, 0.2);
+}
+
+html.dark {
+--quantum-bg: #1a1a2e;
+--quantum-text: #ffffff;
+--quantum-text-secondary: #a0aec0;
+--quantum-card-bg: rgba(255, 255, 255, 0.05);
+--quantum-border: rgba(0, 128, 255, 0.2);
+}
+
+/* Update body background for theme switching */
+body {
+background: var(--quantum-bg);
+color: var(--quantum-text);
+transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Update quantum cards for theme switching */
+.quantum-card {
+background: var(--quantum-card-bg);
+border-color: var(--quantum-border);
+transition: all 0.3s ease;
+}
+
+/* Light theme specific styles */
+html.light body {
+background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 50%, #e2e8f0 100%);
+}
+
+html.light .quantum-text-gradient {
+background: linear-gradient(135deg, var(--quantum-blue), var(--quantum-purple));
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+}
+
+html.light .quantum-card {
+background: rgba(255, 255, 255, 0.8);
+backdrop-filter: blur(10px);
+border: 1px solid rgba(0, 128, 255, 0.2);
+box-shadow: 0 8px 32px rgba(0, 128, 255, 0.1);
+}
+
+/* Web3 specific styles */
+.web3-connected {
+background: linear-gradient(135deg, #10B981, #059669);
+border: 1px solid #34D399;
+}
+
+.web3-disconnected {
+background: linear-gradient(135deg, #EF4444, #DC2626);
+border: 1px solid #F87171;
+}
+
+.transaction-pending {
+animation: quantumPulse 1s ease-in-out infinite;
+opacity: 0.7;
+}
+
+/* Whitepaper navigation styles */
+.whitepaper-nav {
+max-height: 70vh;
+overflow-y: auto;
+}
+
+.whitepaper-nav::-webkit-scrollbar {
+width: 4px;
+}
+
+.whitepaper-nav::-webkit-scrollbar-thumb {
+background: var(--quantum-blue);
+border-radius: 2px;
+}

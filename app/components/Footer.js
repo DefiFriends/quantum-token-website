@@ -6,7 +6,7 @@ const currentYear = new Date().getFullYear()
 
 const links = {
 product: [
-{ name: "Whitepaper", href: "/whitepaper.pdf" },
+{ name: "WhitepaperSection", href: "#whitepaper" },
 { name: "Tokenomics", href: "#tokenomics", scroll: true },
 { name: "Roadmap", href: "#roadmap", scroll: true },
 { name: "Staking", href: "#tokenomics", scroll: true }
@@ -53,9 +53,9 @@ whileHover={{ scale: 1.05 }}
 onClick={() => scrollToSection('home')}
 >
 <div className="w-10 h-10 quantum-glow rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold">
-Q
+QTM
 </div>
-<span className="text-xl font-orbitron font-bold quantum-text-gradient">QUANTUM</span>
+<span className="text-xl font-orbitron font-bold quantum-text-gradient">QUANTUM TOKEN</span>
 </motion.div>
 <p className="text-gray-400 text-sm mb-4">
 Where quantum physics meets DeFi magic. The first meme coin powered by real quantum mechanics principles.

@@ -135,7 +135,7 @@ delivered directly to your inbox.
 <input
 type="email"
 placeholder="Enter your email address"
-className="flex-1 px-4 py-3 bg-gray-800 border border-blue-500/30 rounded-lg text-white focus:border-blue-500 focus:outline-none"
+className="flex-1 px-4 py-3 bg-gray-800 border border-blue-500/30 rounded-full text-white focus:border-blue-500 focus:outline-none"
 />
 <motion.button
 className="quantum-button whitespace-nowrap"
