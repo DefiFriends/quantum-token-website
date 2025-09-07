@@ -1,3 +1,4 @@
+
 'use client'
 import { useState } from 'react'
 import { motion } from 'framer-motion'
@@ -19,7 +20,7 @@ const [error, setError] = useState('')
 const handleInputChange = (e) => {
 const { name, value } = e.target
 setFormData(prev => ({
-...prev,
+prev,
 [name]: value
 }))
 }
@@ -42,58 +43,10 @@ return false
 
 return true
 
-}
 
-const handleSubmit = async (e) => {
-e.preventDefault()
-
-if (!validateForm()) return
-
-setIsSubmitting(true)
-setError('')
-
-try {
-// For now, we&apos;ll simulate submission - replace with actual API call
-const response = await fetch('/api/whitelist-request', {
-method: 'POST',
-headers: {
-'Content-Type': 'application/json',
-},
-body: JSON.stringify({
-...formData,
-timestamp: new Date().toISOString(),
-status: 'pending'
-}),
-})
-
-if (response.ok) {
-setSubmitted(true)
-// Optional: Send to Discord webhook or Google Sheets
-await sendToDiscord(formData)
-} else {
-throw new Error('Submission failed')
-}
-} catch (error) {
-    console.log('Discord notification failed:', error)
-}
-{ 
-// Fallback: Store in localStorage for manual processing
-const requests = JSON.parse(localStorage.getItem('whitelistRequests') || '[]')
-requests.push({
-...formData,
-timestamp: new Date().toISOString(),
-id: Date.now()
-})
-localStorage.setItem('whitelistRequests', JSON.stringify(requests))
-setSubmitted(true)
-} try {
-setIsSubmitting(false)
-}
-finally {}
 }
 
 const sendToDiscord = async (data) => {
-// Replace with your Discord webhook URL
 const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1412170496170266705/X8-hytjGZZDS2SYCI4l8E6B2P6pO6GjuU1wFggpT1Q7DNVRdfceRtOr_AqYWJ-Rtdiyu"
 
 const embed = {
@@ -117,8 +70,42 @@ method: 'POST',
 headers: { 'Content-Type': 'application/json' },
 body: JSON.stringify({ embeds: [embed] })
 })
-} catch (error) {
-console.log('Discord notification failed:', error)
+} catch (discordError) {
+console.log('Discord notification failed:', discordError)
+}
+
+}
+
+const handleSubmit = async (e) => {
+e.preventDefault()
+
+if (!validateForm()) return
+
+setIsSubmitting(true)
+setError('')
+
+try {
+// Store in localStorage as primary method
+const requests = JSON.parse(localStorage.getItem('whitelistRequests') || '[]')
+requests.push({
+...formData,
+timestamp: new Date().toISOString(),
+id: Date.now()
+})
+localStorage.setItem('whitelistRequests', JSON.stringify(requests))
+
+// Try Discord webhook (may fail due to CORS but won't break the form)
+try {
+await sendToDiscord(formData)
+} catch (discordError) {
+console.log('Discord notification failed, but form submitted successfully:', discordError)
+}
+
+setSubmitted(true)
+} catch (submitError) {
+setError('Submission failed. Please try again.')
+} finally {
+setIsSubmitting(false)
 }
 
 }
@@ -143,7 +130,7 @@ Thank you for your interest in the Quantum Token presale. Your whitelist request
 <h3 className="font-semibold mb-2 text-blue-400">What happens next?</h3>
 <ul className="text-sm text-gray-300 space-y-1 text-left">
 <li>• Our team will review your application within 24-48 hours</li>
-<li>• You&apos;ll receive an email confirmation once approved</li>
+<li>• You'll receive an email confirmation once approved</li>
 <li>• Follow our social media for presale announcements</li>
 <li>• Join our community channels for updates</li>
 </ul>
@@ -276,7 +263,7 @@ name="walletAddress"
 value={formData.walletAddress}
 onChange={handleInputChange}
 placeholder="0x..."
-className="w-full p-3 bg-gray-800/50 border border-blue-500/30 rounded-full text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
+className="w-full p-3 bg-gray-800/50 border border-blue-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
 required
 />
 </div>
@@ -291,7 +278,7 @@ name="email"
 value={formData.email}
 onChange={handleInputChange}
 placeholder="your@email.com"
-className="w-full p-3 bg-gray-800/50 border border-blue-500/30 rounded-full text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
+className="w-full p-3 bg-gray-800/50 border border-blue-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
 required
 />
 </div>
@@ -307,7 +294,7 @@ name="twitterHandle"
 value={formData.twitterHandle}
 onChange={handleInputChange}
 placeholder="@yourusername"
-className="w-full p-3 bg-gray-800/50 border border-blue-500/30 rounded-full text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
+className="w-full p-3 bg-gray-800/50 border border-blue-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
 />
 </div>
 
@@ -321,7 +308,7 @@ name="telegramHandle"
 value={formData.telegramHandle}
 onChange={handleInputChange}
 placeholder="@yourusername"
-className="w-full p-3 bg-gray-800/50 border border-blue-500/30 rounded-full text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
+className="w-full p-3 bg-gray-800/50 border border-blue-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
 />
 </div>
 </div>
@@ -334,7 +321,7 @@ Planned Investment Amount (ETH)
 name="investmentAmount"
 value={formData.investmentAmount}
 onChange={handleInputChange}
-className="w-full p-3 bg-gray-800/50 border border-blue-500/30 rounded-full text-white focus:outline-none focus:border-blue-500"
+className="w-full p-3 bg-gray-800/50 border border-blue-500/30 rounded-lg text-white focus:outline-none focus:border-blue-500"
 >
 <option value="">Select amount</option>
 <option value="0.05-1">0.05 - 1 ETH</option>
@@ -354,7 +341,7 @@ name="referralCode"
 value={formData.referralCode}
 onChange={handleInputChange}
 placeholder="Optional referral code"
-className="w-full p-3 bg-gray-800/50 border border-blue-500/30 rounded-full text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
+className="w-full p-3 bg-gray-800/50 border border-blue-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
 />
 </div>
 
@@ -366,15 +353,15 @@ Why do you want to join our whitelist? *
 name="reason"
 value={formData.reason}
 onChange={handleInputChange}
-placeholder="  Tell us about your interest in quantum-powered DeFi..."
+placeholder="Tell us about your interest in quantum-powered DeFi..."
 rows={4}
-className="w-full p-3 bg-gray-800/50 border border-blue-500/30 rounded-full text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 resize-none"
+className="w-full p-3 bg-gray-800/50 border border-blue-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 resize-none"
 required
 />
 </div>
 
 {error && (
-<div className="bg-red-500/10 border border-red-500/30 rounded-full p-3 text-red-300 text-sm">
+<div className="bg-red-500/10 border border-red-500/30 rounded-lg p-3 text-red-300 text-sm">
 {error}
 </div>
 )}
@@ -390,7 +377,7 @@ whileTap={{ scale: 0.98 }}
 </motion.button>
 
 <p className="text-xs text-gray-500 text-center">
-* Required fields. We&apos; ll review applications within 24-48 hours.
+* Required fields. We&apos;ll review applications within 24-48 hours.
 </p>
 </form>
 </motion.div>
