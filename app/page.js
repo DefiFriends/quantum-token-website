@@ -9,6 +9,7 @@ import Roadmap from './components/Roadmap'
 import Community from './components/Community'
 import Footer from './components/Footer'
 import WhitepaperSection from './components/WhitepaperSection'
+import AdminDashboard from './admin/page'
 
 export default function Home() {
 return (
@@ -23,6 +24,7 @@ return (
 <Community />
 <Footer />
 <WhitepaperSection />
+<AdminDashboard></AdminDashboard>
 </main>
 )
 }
