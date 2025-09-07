@@ -46,36 +46,6 @@ return true
 
 }
 
-const sendToDiscord = async (data) => {
-const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1412170496170266705/X8-hytjGZZDS2SYCI4l8E6B2P6pO6GjuU1wFggpT1Q7DNVRdfceRtOr_AqYWJ-Rtdiyu"
-
-const embed = {
-title: "New Whitelist Request",
-color: 0x0080FF,
-fields: [
-{ name: "Wallet Address", value: data.walletAddress, inline: false },
-{ name: "Email", value: data.email, inline: true },
-{ name: "Twitter", value: data.twitterHandle || "Not provided", inline: true },
-{ name: "Telegram", value: data.telegramHandle || "Not provided", inline: true },
-{ name: "Investment Amount", value: data.investmentAmount || "Not specified", inline: true },
-{ name: "Referral Code", value: data.referralCode || "None", inline: true },
-{ name: "Reason", value: data.reason, inline: false }
-],
-timestamp: new Date().toISOString()
-}
-
-try {
-await fetch(DISCORD_WEBHOOK_URL, {
-method: 'POST',
-headers: { 'Content-Type': 'application/json' },
-body: JSON.stringify({ embeds: [embed] })
-})
-} catch (discordError) {
-console.log('Discord notification failed:', discordError)
-}
-
-}
-
 const handleSubmit = async (e) => {
 e.preventDefault()
 
@@ -85,7 +55,7 @@ setIsSubmitting(true)
 setError('')
 
 try {
-// Store in localStorage as primary method
+// Store in localStorage (primary method)
 const requests = JSON.parse(localStorage.getItem('whitelistRequests') || '[]')
 requests.push({
 ...formData,
@@ -94,20 +64,12 @@ id: Date.now()
 })
 localStorage.setItem('whitelistRequests', JSON.stringify(requests))
 
-// Try Discord webhook (may fail due to CORS but won't break the form)
-try {
-await sendToDiscord(formData)
-} catch (discordError) {
-console.log('Discord notification failed, but form submitted successfully:', discordError)
-}
-
 setSubmitted(true)
 } catch (submitError) {
 setError('Submission failed. Please try again.')
 } finally {
 setIsSubmitting(false)
 }
-
 }
 
 if (submitted) {
