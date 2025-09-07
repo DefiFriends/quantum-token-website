@@ -272,7 +272,7 @@ name="walletAddress"
 value={formData.walletAddress}
 onChange={handleInputChange}
 placeholder="0x..."
-className="w-full p-3 bg-gray-800/50 border border-blue-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
+className="w-full p-3 bg-gray-800/50 border border-blue-500/30 rounded-full text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
 required
 />
 </div>
@@ -287,7 +287,7 @@ name="email"
 value={formData.email}
 onChange={handleInputChange}
 placeholder="your@email.com"
-className="w-full p-3 bg-gray-800/50 border border-blue-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
+className="w-full p-3 bg-gray-800/50 border border-blue-500/30 rounded-full text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
 required
 />
 </div>
@@ -303,7 +303,7 @@ name="twitterHandle"
 value={formData.twitterHandle}
 onChange={handleInputChange}
 placeholder="@yourusername"
-className="w-full p-3 bg-gray-800/50 border border-blue-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
+className="w-full p-3 bg-gray-800/50 border border-blue-500/30 rounded-full text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
 />
 </div>
 
@@ -317,7 +317,7 @@ name="telegramHandle"
 value={formData.telegramHandle}
 onChange={handleInputChange}
 placeholder="@yourusername"
-className="w-full p-3 bg-gray-800/50 border border-blue-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
+className="w-full p-3 bg-gray-800/50 border border-blue-500/30 rounded-full text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
 />
 </div>
 </div>
@@ -330,7 +330,7 @@ Planned Investment Amount (ETH)
 name="investmentAmount"
 value={formData.investmentAmount}
 onChange={handleInputChange}
-className="w-full p-3 bg-gray-800/50 border border-blue-500/30 rounded-lg text-white focus:outline-none focus:border-blue-500"
+className="w-full p-3 bg-gray-800/50 border border-blue-500/30 rounded-full text-white focus:outline-none focus:border-blue-500"
 >
 <option value="">Select amount</option>
 <option value="0.05-1">0.05 - 1 ETH</option>
@@ -350,7 +350,7 @@ name="referralCode"
 value={formData.referralCode}
 onChange={handleInputChange}
 placeholder="Optional referral code"
-className="w-full p-3 bg-gray-800/50 border border-blue-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
+className="w-full p-3 bg-gray-800/50 border border-blue-500/30 rounded-full text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
 />
 </div>
 
