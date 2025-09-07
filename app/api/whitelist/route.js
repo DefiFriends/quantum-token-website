@@ -11,11 +11,9 @@ return NextResponse.json({
 submissions: whitelistSubmissions,
 count: whitelistSubmissions.length
 })
-} catch (error) {
-return NextResponse.json(
-{ error: 'Failed to fetch submissions' },
-{ status: 500 }
-)
+} catch (err) {
+  console.error('Database error:', err)
+  return NextResponse.json({ error: 'Database error' }, { status: 500 })
 }
 }
 
@@ -154,7 +152,7 @@ return NextResponse.json({ message: 'All submissions cleared' })
 
 } catch (error) {
 return NextResponse.json(
-{ error: 'Failed to clear submissions' },
+{ err: 'Failed to clear submissions' },
 { status: 500 }
 )
 }
