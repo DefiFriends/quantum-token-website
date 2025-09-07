@@ -1,6 +1,5 @@
-
 'use client'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 export default function AdminDashboard() {
 const [submissions, setSubmissions] = useState([])
@@ -30,12 +29,12 @@ setSubmissions(data.submissions || [])
 } else {
 setError('Failed to fetch submissions')
 }
-} catch (fetchError) {
+} catch (err) {
+console.error('Network error:', err)
 setError('Network error')
 } finally {
 setLoading(false)
 }
-
 }
 
 const copyAddresses = () => {
@@ -47,8 +46,8 @@ alert('Wallet addresses copied to clipboard!')
 const exportCSV = () => {
 const headers = ['Timestamp', 'Wallet Address', 'Email', 'Twitter', 'Telegram', 'Investment Amount', 'Referral Code', 'Reason']
 const csvContent = [
-headers.join('',''),
-submissions.map(sub => [
+headers.join(','),
+...submissions.map(sub => [
 sub.timestamp,
 sub.walletAddress,
 sub.email,
@@ -57,7 +56,7 @@ sub.telegramHandle || '',
 sub.investmentAmount || '',
 sub.referralCode || '',
 `"${sub.reason.replace(/"/g, '""')}"`
-].join('',''))
+].join(','))
 ].join('\n')
 
 const blob = new Blob([csvContent], { type: 'text/csv' })
@@ -67,7 +66,6 @@ a.href = url
 a.download = `whitelist_submissions_${new Date().toISOString().split('T')[0]}.csv`
 a.click()
 URL.revokeObjectURL(url)
-
 }
 
 if (!authenticated) {
@@ -244,6 +242,5 @@ Logout
 </div>
 </div>
 </div>
-
 )
 }
