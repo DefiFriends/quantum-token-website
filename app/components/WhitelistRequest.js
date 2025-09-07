@@ -21,7 +21,7 @@ const [submissionId, setSubmissionId] = useState(null)
 const handleInputChange = (e) => {
 const { name, value } = e.target
 setFormData(prev => ({
-prev,
+...prev,
 [name]: value
 }))
 }
