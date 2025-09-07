@@ -1,3 +1,4 @@
+
 'use client'
 import { useState } from 'react'
 
@@ -30,11 +31,12 @@ setSubmissions(data.submissions || [])
 setError('Failed to fetch submissions')
 }
 } catch (err) {
-console.error('Network error:', err)
 setError('Network error')
+console.error('Fetch error:', err)
 } finally {
 setLoading(false)
 }
+
 }
 
 const copyAddresses = () => {
@@ -46,8 +48,8 @@ alert('Wallet addresses copied to clipboard!')
 const exportCSV = () => {
 const headers = ['Timestamp', 'Wallet Address', 'Email', 'Twitter', 'Telegram', 'Investment Amount', 'Referral Code', 'Reason']
 const csvContent = [
-headers.join(','),
-...submissions.map(sub => [
+headers.join('',''),
+submissions.map(sub => [
 sub.timestamp,
 sub.walletAddress,
 sub.email,
@@ -56,7 +58,7 @@ sub.telegramHandle || '',
 sub.investmentAmount || '',
 sub.referralCode || '',
 `"${sub.reason.replace(/"/g, '""')}"`
-].join(','))
+].join('',''))
 ].join('\n')
 
 const blob = new Blob([csvContent], { type: 'text/csv' })
@@ -66,6 +68,7 @@ a.href = url
 a.download = `whitelist_submissions_${new Date().toISOString().split('T')[0]}.csv`
 a.click()
 URL.revokeObjectURL(url)
+
 }
 
 if (!authenticated) {
@@ -171,13 +174,13 @@ Total Submissions: <span className="text-white font-bold">{submissions.length}</
 <div>Telegram: {submission.telegramHandle}</div>
 )}
 </td>
-<td className="p-3 text-gray-300">{submission.investmentAmount || 'Not specified'}</td>
-<td className="p-3 text-gray-300 max-w-xs">
-<div className="truncate" title={submission.reason}>
+<td className="p-3 text-gray-300">{submission.investmentAmount}</td>
+<td className="p-3 text-gray-300">
+<div className="max-w-xs truncate" title={submission.reason}>
 {submission.reason}
 </div>
 </td>
-<td className="p-3 text-gray-400 text-xs">{submission.ipAddress}</td>
+<td className="p-3 text-gray-300 font-mono text-xs">{submission.ipAddress}</td>
 </tr>
 ))}
 </tbody>
@@ -185,62 +188,8 @@ Total Submissions: <span className="text-white font-bold">{submissions.length}</
 </div>
 )}
 </div>
-
-<div className="mt-8 bg-gray-800 rounded-lg p-6">
-<h2 className="text-xl font-bold text-white mb-4">Quick Actions</h2>
-<div className="grid md:grid-cols-3 gap-4">
-<div className="bg-gray-700 p-4 rounded">
-<h3 className="font-semibold text-white mb-2">Add to Whitelist</h3>
-<p className="text-gray-300 text-sm mb-3">
-Copy addresses and add them to your smart contract whitelist via Etherscan.
-</p>
-<button
-onClick={copyAddresses}
-className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded text-sm"
-disabled={submissions.length === 0}
->
-Copy All Addresses
-</button>
-</div>
-
-<div className="bg-gray-700 p-4 rounded">
-<h3 className="font-semibold text-white mb-2">Export Data</h3>
-<p className="text-gray-300 text-sm mb-3">
-Download all submission data as CSV for external processing.
-</p>
-<button
-onClick={exportCSV}
-className="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded text-sm"
-disabled={submissions.length === 0}
->
-Download CSV
-</button>
-</div>
-
-<div className="bg-gray-700 p-4 rounded">
-<h3 className="font-semibold text-white mb-2">Contract Integration</h3>
-<p className="text-gray-300 text-sm mb-3">
-Use Etherscan Write Contract to call addToWhitelist function.
-</p>
-<button
-onClick={() => window.open('https://sepolia.etherscan.io/address/0x46D1Dc0753F202b70851E195c1d14CEA4a7D78b3#writeContract', '_blank')}
-className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded text-sm"
->
-Open Etherscan
-</button>
-</div>
 </div>
 </div>
 
-<div className="mt-6 text-center">
-<button
-onClick={() => setAuthenticated(false)}
-className="text-gray-400 hover:text-gray-300 underline"
->
-Logout
-</button>
-</div>
-</div>
-</div>
 )
 }

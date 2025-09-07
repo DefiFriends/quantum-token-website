@@ -12,8 +12,11 @@ submissions: whitelistSubmissions,
 count: whitelistSubmissions.length
 })
 } catch (err) {
-  console.error('Database error:', err)
-  return NextResponse.json({ error: 'Database error' }, { status: 500 })
+console.error('GET error:', err)
+return NextResponse.json(
+{ error: 'Failed to fetch submissions' },
+{ status: 500 }
+)
 }
 }
 
@@ -84,8 +87,8 @@ message: 'Whitelist application submitted successfully',
 submissionId: submission.id
 })
 
-} catch (error) {
-console.error('API error:', error)
+} catch (err) {
+console.error('POST error:', err)
 return NextResponse.json(
 { error: 'Internal server error' },
 { status: 500 }
@@ -150,9 +153,10 @@ return NextResponse.json(
 whitelistSubmissions = []
 return NextResponse.json({ message: 'All submissions cleared' })
 
-} catch (error) {
+} catch (err) {
+console.error('DELETE error:', err)
 return NextResponse.json(
-{ err: 'Failed to clear submissions' },
+{ error: 'Failed to clear submissions' },
 { status: 500 }
 )
 }
