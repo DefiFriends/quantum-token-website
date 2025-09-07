@@ -1,3 +1,4 @@
+
 'use client'
 import { useState } from 'react'
 import { motion } from 'framer-motion'
@@ -15,6 +16,7 @@ referralCode: ''
 const [isSubmitting, setIsSubmitting] = useState(false)
 const [submitted, setSubmitted] = useState(false)
 const [error, setError] = useState('')
+const [submissionId, setSubmissionId] = useState(null)
 
 const handleInputChange = (e) => {
 const { name, value } = e.target
@@ -35,8 +37,13 @@ setError('Please enter a valid Ethereum wallet address')
 return false
 }
 
-if (!formData.email.includes('@')) {
+if (!formData.email.includes('@') || !formData.email.includes('.')) {
 setError('Please enter a valid email address')
+return false
+}
+
+if (formData.reason.length < 10) {
+setError('Please provide a more detailed reason (at least 10 characters)')
 return false
 }
 
@@ -53,18 +60,35 @@ setIsSubmitting(true)
 setError('')
 
 try {
-// Store in localStorage
-const requests = JSON.parse(localStorage.getItem('whitelistRequests') || '[]')
-requests.push({
-...formData,
-timestamp: new Date().toISOString(),
-id: Date.now()
+const response = await fetch('/api/whitelist', {
+method: 'POST',
+headers: {
+'Content-Type': 'application/json',
+},
+body: JSON.stringify(formData),
 })
-localStorage.setItem('whitelistRequests', JSON.stringify(requests))
 
+const data = await response.json()
+
+if (response.ok) {
+setSubmissionId(data.submissionId)
 setSubmitted(true)
+
+// Clear form data
+setFormData({
+walletAddress: '',
+email: '',
+twitterHandle: '',
+telegramHandle: '',
+reason: '',
+investmentAmount: '',
+referralCode: ''
+})
+} else {
+throw new Error(data.error || 'Submission failed')
+}
 } catch (submitError) {
-setError('Submission failed. Please try again.')
+setError(submitError.message || 'Network error. Please try again.')
 } finally {
 setIsSubmitting(false)
 }
@@ -83,15 +107,28 @@ className="max-w-2xl mx-auto text-center"
 >
 <div className="quantum-card">
 <div className="text-6xl mb-6">🎉</div>
-<h2 className="text-3xl font-bold mb-4 quantum-text-gradient">Request Submitted!</h2>
-<p className="text-gray-300 mb-6">
-Thank you for your interest in the Quantum Token presale. Your whitelist request has been submitted successfully.
+<h2 className="text-3xl font-bold mb-4 quantum-text-gradient">Application Submitted!</h2>
+<p className="text-gray-300 mb-4">
+Thank you for your interest in the Quantum Token presale. Your whitelist application has been submitted successfully.
 </p>
+
+{submissionId && (
+<div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-3 mb-6">
+<p className="text-sm text-blue-400">
+Submission ID: <span className="font-mono">{submissionId}</span>
+</p>
+<p className="text-xs text-gray-400 mt-1">
+Save this ID for reference
+</p>
+</div>
+)}
+
 <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-4 mb-6">
 <h3 className="font-semibold mb-2 text-blue-400">What happens next?</h3>
 <ul className="text-sm text-gray-300 space-y-1 text-left">
 <li>• Our team will review your application within 24-48 hours</li>
 <li>• You will receive an email confirmation once approved</li>
+<li>• Approved addresses will be added to the smart contract whitelist</li>
 <li>• Follow our social media for presale announcements</li>
 <li>• Join our community channels for updates</li>
 </ul>
@@ -115,6 +152,17 @@ whileTap={{ scale: 0.95 }}
 Follow Twitter
 </motion.button>
 </div>
+
+<motion.button
+onClick={() => {
+setSubmitted(false)
+setSubmissionId(null)
+}}
+className="mt-6 text-gray-400 hover:text-gray-300 text-sm underline"
+whileHover={{ scale: 1.05 }}
+>
+Submit another application
+</motion.button>
 </div>
 </motion.div>
 </div>
@@ -170,7 +218,7 @@ transition={{ duration: 0.8 }}
 
 <div className="quantum-card">
 <div className="flex items-start space-x-4">
-<div className="w-12 h-12 quantum-glow rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-xl">
+<div className="w-12 h-12 quantum-glow rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-xl">
 2
 </div>
 <div>
@@ -187,7 +235,7 @@ transition={{ duration: 0.8 }}
 
 <div className="quantum-card">
 <div className="flex items-start space-x-4">
-<div className="w-12 h-12 quantum-glow rounded-full bg-gradient-to-r from-purple-500 to-pink-600 flex items-center justify-center text-white font-bold text-xl">
+<div className="w-12 h-12 quantum-glow rounded-full bg-gradient-to-r from-purple-500 to-pink-600 flex items-center justify-center text-xl">
 ∞
 </div>
 <div>
@@ -319,6 +367,9 @@ rows={4}
 className="w-full p-3 bg-gray-800/50 border border-blue-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 resize-none"
 required
 />
+<p className="text-xs text-gray-500 mt-1">
+Minimum 10 characters. Be specific about your interest in quantum mechanics and DeFi.
+</p>
 </div>
 
 {error && (
@@ -330,15 +381,17 @@ required
 <motion.button
 type="submit"
 disabled={isSubmitting}
-className="w-full quantum-button text-lg py-4"
-whileHover={{ scale: 1.02 }}
-whileTap={{ scale: 0.98 }}
+className="w-full quantum-button text-lg py-4 disabled:opacity-50 disabled:cursor-not-allowed"
+whileHover={!isSubmitting ? { scale: 1.02 } : {}}
+whileTap={!isSubmitting ? { scale: 0.98 } : {}}
 >
-{isSubmitting ? 'Submitting...' : 'Request Whitelist Access'}
+{isSubmitting ? 'Submitting Application...' : 'Apply for Whitelist'}
 </motion.button>
 
 <p className="text-xs text-gray-500 text-center">
-* Required fields. We will review applications within 24-48 hours.
+* Required fields. Applications are reviewed within 24-48 hours.
+<br />
+Each wallet address can only submit one application.
 </p>
 </form>
 </motion.div>
