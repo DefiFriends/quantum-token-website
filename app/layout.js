@@ -1,6 +1,7 @@
 import './globals.css'
 import { Inter, Orbitron } from 'next/font/google'
 import QuantumParticles from './components/QuantumParticles'
+import { Analytics } from "@vercel/analytics/next"
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const orbitron = Orbitron({ subsets: ['latin'], variable: '--font-orbitron' })
@@ -20,6 +21,7 @@ return (
 <ThemeProvider>
 <QuantumParticles />
 {children}
+<Analytics />
 </ThemeProvider>
 </body>
 </html>
