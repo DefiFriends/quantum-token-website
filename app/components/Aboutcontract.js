@@ -339,6 +339,7 @@ Step 3
 <h3 className="text-2xl font-bold mb-6 quantum-text-gradient">Start Testing</h3>
 
 <div className="space-y-3 text-sm text-gray-300">
+<p>• Get Whitelist aproved</p>
 <p>• Connect your MetaMask wallet</p>
 <p>• Switch to Sepolia network</p>
 <p>• Buy free QTM tokens in presale</p>
