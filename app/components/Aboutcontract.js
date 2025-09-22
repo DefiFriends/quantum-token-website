@@ -107,7 +107,7 @@ Etherscan
 
 {/* Key Features */}
 <div>
-<h4 className="text-lg font-semibold mb-3 text-purple-400">Available Features</h4>
+<h3 className="text-lg font-semibold mb-3 text-purple-400">Available Features</h3>
 <div className="grid grid-cols-2 gap-3 text-sm">
 <div className="flex items-center space-x-2">
 <span className="w-2 h-2 bg-green-500 rounded-full"></span>
@@ -135,7 +135,7 @@ Etherscan
 <div className="flex items-start space-x-3">
 <span className="text-2xl">⚠️</span>
 <div>
-<h4 className="text-orange-400 font-semibold mb-2">Testnet Environment</h4>
+<h3 className="text-orange-400 font-semibold mb-2">Testnet Environment</h3>
 <div className="space-y-2 text-sm text-gray-300">
 <p>• This is a testing environment using Sepolia testnet</p>
 <p>• All tokens and transactions have NO REAL VALUE</p>
@@ -150,7 +150,7 @@ Etherscan
 <div className="flex items-start space-x-3">
 <span className="text-2xl">🎯</span>
 <div>
-<h4 className="text-blue-400 font-semibold mb-2">Phase 0 Goals</h4>
+<h3 className="text-blue-400 font-semibold mb-2">Phase 0 Goals</h3>
 <div className="space-y-2 text-sm text-gray-300">
 <p>• Test all smart contract functionality</p>
 <p>• Gather community feedback</p>
@@ -187,9 +187,9 @@ Setup Instructions
 <div className="bg-gray-800/30 p-6 rounded-lg border border-blue-500/20">
 <div className="flex items-center mb-4">
 <span className="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">
-1
+-
 </span>
-<h5 className="text-lg font-semibold text-blue-400">Add Sepolia Network</h5>
+<h3 className="text-lg font-semibold text-blue-400">Add Sepolia Network</h3>
 </div>
 <div className="space-y-2 text-sm text-gray-300">
 <p><strong>Network Name:</strong> Sepolia Testnet</p>
@@ -204,9 +204,9 @@ Setup Instructions
 <div className="bg-gray-800/30 p-6 rounded-lg border border-green-500/20">
 <div className="flex items-center mb-4">
 <span className="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">
-2
+-
 </span>
-<h5 className="text-lg font-semibold text-green-400">Get Test ETH</h5>
+<h3 className="text-lg font-semibold text-green-400">Get Test ETH</h3>
 </div>
 <div className="space-y-3 text-sm text-gray-300">
 <p>Visit any Sepolia faucet:</p>
@@ -243,9 +243,9 @@ className="block text-cyan-400 hover:underline"
 <div className="bg-gray-800/30 p-6 rounded-lg border border-purple-500/20">
 <div className="flex items-center mb-4">
 <span className="bg-purple-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">
-3
+-
 </span>
-<h5 className="text-lg font-semibold text-purple-400">Start Testing</h5>
+<h3 className="text-lg font-semibold text-purple-400">Start Testing</h3>
 </div>
 <div className="space-y-2 text-sm text-gray-300">
 <p>• Get Whitelist aproved</p>
@@ -260,7 +260,7 @@ className="block text-cyan-400 hover:underline"
 
 {/* Additional Info */}
 <div className="mt-6 p-4 bg-gray-800/50 rounded-lg border border-cyan-500/30">
-<h5 className="text-cyan-400 font-semibold mb-2">Need Help?</h5>
+<h3 className="text-cyan-400 font-semibold mb-2">Need Help?</h3>
 <p className="text-sm text-gray-300">
 If you encounter any issues during setup or testing, please reach out to our
 community on Discord or Telegram. Our team is ready to assist with technical
