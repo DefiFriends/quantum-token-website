@@ -14,7 +14,7 @@ try {
 await navigator.clipboard.writeText(text)
 setCopySuccess('Contract address copied!')
 setTimeout(() => setCopySuccess(''), 3000)
-} catch (err) {
+} catch {
 setCopySuccess('Failed to copy')
 setTimeout(() => setCopySuccess(''), 3000)
 }
