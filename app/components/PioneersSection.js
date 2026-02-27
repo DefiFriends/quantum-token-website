@@ -10,7 +10,7 @@ const [activeTab, setActiveTab] = useState('overview')
 const GOOGLE_FORM_URL = 'https://forms.gle/YuX5x6vNWEymcjD17'
 
 // Your actual Google Sheets link (for leaderboard - we'll set this up in Step 3)
-const GOOGLE_SHEETS_URL = 'https://docs.google.com/spreadsheets/d/1Bt2NTVhmfAE2Vbf6RYJaU784CIF07bIllewjlgX9kac/edit?resourcekey=&gid=1531505604#gid=1531505604'
+const GOOGLE_SHEETS_URL = 'https://docs.google.com/spreadsheets/d/1Bt2NTVhmfAE2Vbf6RYJaU784CIF07bIllewjlgX9kac/edit#gid=1531505604'
 
 const pointCategories = [
 {
