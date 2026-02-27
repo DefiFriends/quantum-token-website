@@ -19,6 +19,7 @@ const menuItems = [
 { name: 'About', href: 'about' },
 { name: 'Tokenomics', href: 'tokenomics' },
 { name: 'Web3 Interface', href: 'web3' },
+{ name: 'Pioneers', href: 'pioneers' },
 { name: 'Whitepaper', href: 'whitepaper' },
 { name: 'Roadmap', href: 'roadmap' },
 { name: 'Community', href: 'community' },

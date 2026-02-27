@@ -12,7 +12,7 @@ const phases = [
 {
 phase: "Phase 1",
 title: "Foundation",
-period: "Q3 2025",
+period: "Q3 2026",
 status: "current",
 items: [
 "✅ Smart contract development",
@@ -25,7 +25,7 @@ items: [
 {
 phase: "Phase 2",
 title: "Quantum Mechanics",
-period: "Q4 2025",
+period: "Q4 2026",
 status: "upcoming",
 items: [
 "🔮 Cross-chain bridge development",
@@ -38,7 +38,7 @@ items: [
 {
 phase: "Phase 3",
 title: "Entanglement",
-period: "Q1 2026",
+period: "Q1 2027",
 status: "planned",
 items: [
 "🔗 True quantum entanglement between chains",
@@ -51,7 +51,7 @@ items: [
 {
 phase: "Phase 4",
 title: "Quantum Supremacy",
-period: "Q2 2026",
+period: "Q2 2027",
 status: "vision",
 items: [
 "🚀 Quantum metaverse integration",

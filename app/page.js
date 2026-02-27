@@ -2,6 +2,7 @@
 import Header from './components/Header'
 import Hero from './components/Hero'
 import Web3Integration from './components/Web3Integration'
+import PioneersSection from './components/PioneersSection'
 import AboutContract from './components/Aboutcontract'
 import WhitelistRequest from './components/WhitelistRequest'
 import About from './components/About'
@@ -18,6 +19,7 @@ return (
 <Header />
 <Hero />
 <Web3Integration />
+<PioneersSection />
 <AboutContract />
 <WhitelistRequest/>
 <About />

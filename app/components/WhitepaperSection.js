@@ -88,7 +88,8 @@ benefits: [
 "Early supporter bonuses up to 20%",
 "Quantum uncertainty bonus multipliers",
 "Priority access to PARADOX presale",
-"Community points for governance participation"
+"Community points for governance participation",
+"Quantum Pioneers Program"
 ]
 }
 },
@@ -130,7 +131,7 @@ title: "Roadmap",
 content: {
 phases: [
 {
-quarter: "Q3 2025",
+quarter: "Q3 2026",
 milestones: [
 "Smart contract deployment and audit",
 "Presale launch and community building",
@@ -139,7 +140,7 @@ milestones: [
 ]
 },
 {
-quarter: "Q4 2025",
+quarter: "Q4 2026",
 milestones: [
 "PARADOX token development",
 "Cross-chain bridge implementation",
@@ -148,7 +149,7 @@ milestones: [
 ]
 },
 {
-quarter: "Q1 2026",
+quarter: "Q1 2027",
 milestones: [
 "PARADOX token launch",
 "Cross-chain yield farming",
@@ -157,7 +158,7 @@ milestones: [
 ]
 },
 {
-quarter: "Q2 2026",
+quarter: "Q2 2027",
 milestones: [
 "Quantum governance implementation",
 "Scientific research partnerships",
@@ -171,7 +172,7 @@ milestones: [
 {
 title: "Team & Legal",
 content: {
-team:  "Our team consists of two (for now ) @Mystery Technical Engineer and co-founder(will be revealed after launch of PDX Token) who is blockchain developer, quantum physics researcher, DeFi expert and much more and me Andrej@Admin co-founder and CEO committed to build a sustainable and innovative ecosystem.",
+team:  "Our team consists of very small group of people(for now), two friends Mystery Technical Engineer - TechCEO and co-founder(will be revealed after launch of PDX Token) who is blockchain developer, quantum physics researcher, DeFi expert and so much more, with him Andrej@Admin co-founder and CEO committed to build a sustainable and innovative ecosystem.",
 advisors: "Scientific advisor and co-founder provide guidance on quantum mechanics implementation and ensure our technology remains cutting-edge.",
 legal: [
 "Comprehensive legal review of all smart contracts",
