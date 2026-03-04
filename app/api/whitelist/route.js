@@ -2,7 +2,7 @@
 import { NextResponse } from 'next/server'
 
 // In-memory storage for submissions (resets on each deployment)
-// For production, you'd use a database like PostgreSQL, MongoDB, or Vercel KV
+
 let whitelistSubmissions = []
 
 export async function GET() {
@@ -78,7 +78,7 @@ ipAddress: request.headers.get('x-forwarded-for') || request.headers.get('x-real
 // Store submission
 whitelistSubmissions.push(submission)
 
-// Send Discord notifications (privacy-protected)
+// Send Discord notifications
 await sendDiscordNotifications(submission)
 
 return NextResponse.json({
@@ -96,29 +96,28 @@ return NextResponse.json(
 }
 }
 
-// ==========================================
-// PRIVACY-PROTECTED DISCORD NOTIFICATIONS
-// ==========================================
+
 async function sendDiscordNotifications(submission) {
-// Helper function: Shorten wallet address
-const shortenWallet = (wallet) => {
-if (!wallet || wallet.length < 10) return wallet
-return '${wallet.slice(0, 6)}...${wallet.slice(-4)}'
-}
-// ==========================================
-// PUBLIC WEBHOOK - PRIVACY PROTECTED
-// ==========================================
+// Shorten wallet address for privacy
+const walletShort = submission.walletAddress.slice(0, 6) + '…' + submission.walletAddress.slice(-4)
+
+// PUBLIC WEBHOOK
 const publicWebhookUrl = process.env.DISCORD_WEBHOOK_URL
 
 if (publicWebhookUrl) {
 try {
-const publicEmbed = {
+await fetch(publicWebhookUrl, {
+method: 'POST',
+headers: { 'Content-Type': 'application/json' },
+body: JSON.stringify({
+content: "🌟 **New Whitelist Application Received!**",
+embeds: [{
 title: "🎉 New Pioneer Joined!",
-color: 0x0080FF, // Quantum blue
+color: 0x0080FF,
 fields: [
 {
 name: "Wallet Address",
-value: '\'${shortenWallet(submission.walletAddress)}',
+value: '\'${walletShort}',
 inline: false
 },
 {
@@ -133,9 +132,7 @@ inline: true
 },
 {
 name: "Message",
-value: submission.reason.length > 200
-? submission.reason.substring(0, 200) + "…"
-: submission.reason,
+value: submission.reason.substring(0, 200) + (submission.reason.length > 200 ? '…' : ''),
 inline: false
 }
 ],
@@ -143,14 +140,7 @@ timestamp: submission.timestamp,
 footer: {
 text: "Welcome to the Quantum Revolution! ⚛️"
 }
-}
-
-await fetch(publicWebhookUrl, {
-method: 'POST',
-headers: { 'Content-Type': 'application/json' },
-body: JSON.stringify({
-content: "🌟 **New Whitelist Application Received!**",
-embeds: [publicEmbed]
+}]
 })
 })
 
@@ -160,20 +150,23 @@ console.error('Public Discord notification failed:', error)
 
 }
 
-// ==========================================
-// ADMIN WEBHOOK - FULL DETAILS (PRIVATE)
-// ==========================================
+// ADMIN WEBHOOK
 const adminWebhookUrl = process.env.DISCORD_ADMIN_WEBHOOK_URL
 
 if (adminWebhookUrl) {
 try {
-const adminEmbed = {
+await fetch(adminWebhookUrl, {
+method: 'POST',
+headers: { 'Content-Type': 'application/json' },
+body: JSON.stringify({
+content: "🔐 **Admin: New Whitelist Submission**",
+embeds: [{
 title: "🔒 New Whitelist Application (Admin View)",
-color: 0xFF0000, // Red for admin
+color: 0xFF0000,
 fields: [
 {
 name: "Full Wallet Address",
-value: '\'${submission.walletAddress}', inline: false }, { name: "Email", value: '${submission.email}', inline: false }, { name: "Twitter", value: submission.twitterHandle || "Not provided", inline: true }, { name: "Telegram", value: submission.telegramHandle || "Not provided", inline: true }, { name: "Investment Amount", value: submission.investmentAmount || "Not specified", inline: true }, { name: "Referral Code", value: submission.referralCode || "None", inline: true }, { name: "Reason", value: submission.reason.length > 1000 ? submission.reason.substring(0, 1000) + "..." : submission.reason, inline: false }, { name: "Submission ID", value: '${submission.id}', inline: true }, { name: "IP Address", value: '${submission.ipAddress}',
+value: '\'${submission.walletAddress}', inline: false }, { name: "Email", value: '${submission.email}', inline: false }, { name: "Twitter", value: submission.twitterHandle || "Not provided", inline: true }, { name: "Telegram", value: submission.telegramHandle || "Not provided", inline: true }, { name: "Investment Amount", value: submission.investmentAmount || "Not specified", inline: true }, { name: "Referral Code", value: submission.referralCode || "None", inline: true }, { name: "Reason", value: submission.reason.substring(0, 1000) + (submission.reason.length > 1000 ? '...' : ''), inline: false }, { name: "Submission ID", value: '${submission.id}', inline: true }, { name: "IP Address", value: '${submission.ipAddress}',
 inline: true
 }
 ],
@@ -181,14 +174,7 @@ timestamp: submission.timestamp,
 footer: {
 text: "⚠️ ADMIN ONLY - DO NOT SHARE"
 }
-}
-
-await fetch(adminWebhookUrl, {
-method: 'POST',
-headers: { 'Content-Type': 'application/json' },
-body: JSON.stringify({
-content: "🔐 **Admin: New Whitelist Submission**",
-embeds: [adminEmbed]
+}]
 })
 })
 
@@ -199,13 +185,13 @@ console.error('Admin Discord notification failed:', error)
 }
 }
 
-// Admin endpoint to export submissions (protect this in production)
+
 export async function DELETE(request) {
 try {
 const { searchParams } = new URL(request.url)
 const adminKey = searchParams.get('key')
 
-// Simple admin protection - use environment variable for admin key
+
 if (adminKey !== process.env.ADMIN_KEY) {
 return NextResponse.json(
 { error: 'Unauthorized' },
