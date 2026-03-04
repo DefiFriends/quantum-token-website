@@ -99,7 +99,7 @@ return NextResponse.json(
 
 async function sendDiscordNotifications(submission) {
 // Shorten wallet address for privacy
-const walletShort = submission.walletAddress.slice(0, 6) + '…' + submission.walletAddress.slice(-4)
+
 
 // PUBLIC WEBHOOK
 const publicWebhookUrl = process.env.DISCORD_WEBHOOK_URL
@@ -117,7 +117,7 @@ color: 0x0080FF,
 fields: [
 {
 name: "Wallet Address",
-value: '\'${walletShort}',
+value: '\'${submission.walletAddress.slice(0, 6)}...${submission.walletAddress.slice(-4)}',
 inline: false
 },
 {
