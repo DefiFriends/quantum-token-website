@@ -1,8 +1,7 @@
 
 import { NextResponse } from 'next/server'
 
-// In-memory storage for submissions (resets on each deployment)
-
+// In-memory storage (will reset on redeploy, but Discord has the data!)
 let whitelistSubmissions = []
 
 export async function GET() {
@@ -75,10 +74,10 @@ status: 'pending',
 ipAddress: request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown'
 }
 
-// Store submission
+// Store submission (temporary - resets on redeploy)
 whitelistSubmissions.push(submission)
 
-// Send Discord notifications
+// Send Discord notifications (THIS IS YOUR PERMANENT RECORD!)
 await sendDiscordNotifications(submission)
 
 return NextResponse.json({
@@ -96,10 +95,11 @@ return NextResponse.json(
 }
 }
 
-
 async function sendDiscordNotifications(submission) {
-// Shorten wallet address for privacy
-
+// Shorten wallet for public display
+const walletStart = submission.walletAddress.substring(0, 6)
+const walletEnd = submission.walletAddress.substring(submission.walletAddress.length - 4)
+const walletShortened = walletStart + '…' + walletEnd
 
 // PUBLIC WEBHOOK
 const publicWebhookUrl = process.env.DISCORD_WEBHOOK_URL
@@ -117,7 +117,7 @@ color: 0x0080FF,
 fields: [
 {
 name: "Wallet Address",
-value: '\'${submission.walletAddress.slice(0, 6)}...${submission.walletAddress.slice(-4)}',
+value: walletShortened,
 inline: false
 },
 {
@@ -132,7 +132,9 @@ inline: true
 },
 {
 name: "Message",
-value: submission.reason.substring(0, 200) + (submission.reason.length > 200 ? '…' : ''),
+value: submission.reason.length > 200
+? submission.reason.substring(0, 200) + '…'
+: submission.reason,
 inline: false
 }
 ],
@@ -143,11 +145,9 @@ text: "Welcome to the Quantum Revolution! ⚛️"
 }]
 })
 })
-
 } catch (error) {
 console.error('Public Discord notification failed:', error)
 }
-
 }
 
 // ADMIN WEBHOOK
@@ -166,7 +166,49 @@ color: 0xFF0000,
 fields: [
 {
 name: "Full Wallet Address",
-value: '\'${submission.walletAddress}', inline: false }, { name: "Email", value: '${submission.email}', inline: false }, { name: "Twitter", value: submission.twitterHandle || "Not provided", inline: true }, { name: "Telegram", value: submission.telegramHandle || "Not provided", inline: true }, { name: "Investment Amount", value: submission.investmentAmount || "Not specified", inline: true }, { name: "Referral Code", value: submission.referralCode || "None", inline: true }, { name: "Reason", value: submission.reason.substring(0, 1000) + (submission.reason.length > 1000 ? '...' : ''), inline: false }, { name: "Submission ID", value: '${submission.id}', inline: true }, { name: "IP Address", value: '${submission.ipAddress}',
+value: submission.walletAddress,
+inline: false
+},
+{
+name: "Email",
+value: submission.email,
+inline: false
+},
+{
+name: "Twitter",
+value: submission.twitterHandle || "Not provided",
+inline: true
+},
+{
+name: "Telegram",
+value: submission.telegramHandle || "Not provided",
+inline: true
+},
+{
+name: "Investment Amount",
+value: submission.investmentAmount || "Not specified",
+inline: true
+},
+{
+name: "Referral Code",
+value: submission.referralCode || "None",
+inline: true
+},
+{
+name: "Reason",
+value: submission.reason.length > 1000
+? submission.reason.substring(0, 1000) + '…'
+: submission.reason,
+inline: false
+},
+{
+name: "Submission ID",
+value: submission.id.toString(),
+inline: true
+},
+{
+name: "IP Address",
+value: submission.ipAddress,
 inline: true
 }
 ],
@@ -177,20 +219,16 @@ text: "⚠️ ADMIN ONLY - DO NOT SHARE"
 }]
 })
 })
-
 } catch (error) {
 console.error('Admin Discord notification failed:', error)
 }
-
 }
 }
-
 
 export async function DELETE(request) {
 try {
 const { searchParams } = new URL(request.url)
 const adminKey = searchParams.get('key')
-
 
 if (adminKey !== process.env.ADMIN_KEY) {
 return NextResponse.json(
