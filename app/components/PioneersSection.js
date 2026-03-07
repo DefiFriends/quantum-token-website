@@ -118,8 +118,8 @@ transition={{ duration: 0.8, delay: 0.2 }}
 >
 {[
 { label: "Total Allocation", value: "2.1B QTM", icon: "💎" },
-{ label: "Active Pioneers", value: "TBD", icon: "👥" },
-{ label: "Total Points", value: "TBD", icon: "⭐" },
+{ label: "Active Pioneers", value: "1", icon: "👥" },
+{ label: "Total Points", value: "1800", icon: "⭐" },
 { label: "Time Left", value: "Q3 2026", icon: "⏰" }
 ].map((stat, index) => (
 <motion.div
