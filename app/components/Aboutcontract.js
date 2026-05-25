@@ -4,6 +4,8 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 
+
+const STAKING_CONTRACT_ADDRESS = "0xC7238b4b297fcf63f90EC1843b7d64E0c155d950";
 const CONTRACT_ADDRESS = "0x46D1Dc0753F202b70851E195c1d14CEA4a7D78b3"
 
 export default function AboutContract() {
@@ -158,6 +160,58 @@ View on Etherscan
 </div>
 <div className="text-sm text-gray-400">
 <p>Contract verified and deployed on Sepolia testnet. All functions are operational for testing.</p>
+</div>
+</div>
+</motion.div>
+
+{/* Staking Contract Address */}
+<motion.div
+initial={{ opacity: 0, y: 50 }}
+animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+transition={{ duration: 0.8, delay: 0.25 }}
+whileHover={{ y: -10, transition: { duration: 0.1 } }}
+className="quantum-card"
+>
+<div className="flex items-center justify-between mb-6">
+<div className="px-4 py-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white text-sm font-semibold">
+Staking Contract
+</div>
+<div className="text-sm text-gray-400">Verified ✅</div>
+</div>
+
+<h3 className="text-2xl font-bold mb-6 quantum-text-gradient">Staking Contract Address</h3>
+
+<div className="space-y-4">
+<div className="bg-gray-800/30 p-4 border border-gray-700/50">
+<div className="flex items-center justify-between">
+<span className="text-cyan-400 font-mono text-sm">
+{formatAddress(STAKING_CONTRACT_ADDRESS)}
+</span>
+<div className="flex space-x-2">
+<button
+onClick={() => copyToClipboard(STAKING_CONTRACT_ADDRESS)}
+className="px-3 py-1 bg-blue-600/50 hover:bg-blue-600/70 text-xs transition-colors"
+>
+Copy Full
+</button>
+<a
+href={`https://sepolia.etherscan.io/address/${STAKING_CONTRACT_ADDRESS}`}
+target="_blank"
+rel="noopener noreferrer"
+className="px-3 py-1 bg-purple-600/50 hover:bg-purple-600/70 text-xs transition-colors"
+>
+View on Etherscan
+</a>
+</div>
+</div>
+{copySuccess && (
+<div className="mt-2">
+<span className="text-green-400 text-sm">{copySuccess}</span>
+</div>
+)}
+</div>
+<div className="text-sm text-gray-400">
+<p>⚛️ Quantum Staking Mechanism v2.0 - Features multi-sig approvals, time-locked withdrawals, and probabilistic rewards (12-24% APY).</p>
 </div>
 </div>
 </motion.div>
