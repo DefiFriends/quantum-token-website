@@ -31,21 +31,27 @@ export default function Tokenomics() {
         baseAPY = 0.12 // 12%
         break
       case 90:
-        baseAPY = 0.15 // 15%
-        break
-      case 180:
         baseAPY = 0.18 // 18%
         break
-      case 365:
+      case 180:
         baseAPY = 0.24 // 24%
         break
       default:
-        baseAPY = 0.12 // 12%
+        baseAPY = 0.12
     }
 
     const annualReward = stakingAmount * baseAPY
     const monthlyReward = annualReward / 12
     return Math.floor(monthlyReward)
+  }
+
+  const getAPYLabel = () => {
+    switch (lockPeriod) {
+      case 30: return '12%'
+      case 90: return '18%'
+      case 180: return '24%'
+      default: return '12%'
+    }
   }
 
   return (
@@ -153,13 +159,13 @@ export default function Tokenomics() {
                 />
               </div>
 
-              {/* Lock Period Selection */}
+              {/* Lock Period Selection - 3 TIERS ONLY */}
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">
                   Lock Period
                 </label>
-                <div className="grid grid-cols-4 gap-2">
-                  {[30, 90, 180, 365].map((period) => (
+                <div className="grid grid-cols-3 gap-2">
+                  {[30, 90, 180].map((period) => (
                     <button
                       key={period}
                       onClick={() => setLockPeriod(period)}
@@ -169,7 +175,7 @@ export default function Tokenomics() {
                           : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
                       }`}
                     >
-                      {period === 365 ? '1 Year' : `${period} days`}
+                      {period} days
                     </button>
                   ))}
                 </div>
@@ -183,7 +189,7 @@ export default function Tokenomics() {
                     {calculateRewards().toLocaleString()} QTM
                   </div>
                   <div className="text-sm text-gray-400 mt-2">
-                    APY: {lockPeriod === 30 ? '12%' : lockPeriod === 90 ? '15%' : lockPeriod === 180 ? '18%' : '24%'}
+                    Base APY: {getAPYLabel()} (quantum mechanics may increase this!)
                   </div>
                 </div>
               </div>
