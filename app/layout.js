@@ -26,8 +26,8 @@ export const metadata = {
     images: [
       {
         url: '/og-image.png',
-        width: 1730,
-        height: 909,
+        width: 1200,
+        height: 630,
         alt: "Quantum Token (QTM) - Where Quantum Physics Meets DeFi",
       },
     ],
