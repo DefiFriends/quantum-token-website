@@ -37,7 +37,7 @@ export const metadata = {
 
   // Twitter/X Card
   twitter: {
-    card: 'summary_large_image',
+    card: 'summary',
     title: 'Quantum Token QTM - First Quantum DeFi Protocol',
     description: 'Real quantum mechanics in DeFi. Probabilistic staking, cross-chain entanglement, non-inflationary rewards.',
     site: '@QuantumDefiQTM',
