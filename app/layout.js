@@ -10,7 +10,7 @@ const orbitron = Orbitron({ subsets: ['latin'], variable: '--font-orbitron' })
 export const metadata = {
   metadataBase: new URL('https://qtmtoken.com'),
   
-  title: 'Quantum Token - First Quantum DeFi Protocol',
+  title: 'Quantum Token QTM - First Quantum DeFi Protocol',
   description: 'Real quantum mechanics in DeFi. Probabilistic staking, cross-chain entanglement, non-inflationary rewards.',
   keywords: 'Quantum Token, QTM, DeFi, Quantum Physics, Staking, Crypto, Blockchain, PARADOX, Quantum Entanglement',
   authors: [{ name: 'Quantum Token Team' }],
@@ -19,15 +19,15 @@ export const metadata = {
 
   // Open Graph - works for Telegram, Discord, WhatsApp, Facebook
   openGraph: {
-    title: 'Quantum Token - First Quantum DeFi Protocol',
+    title: 'Quantum Token QTM - First Quantum DeFi Protocol',
     description: 'Real quantum mechanics in DeFi. Probabilistic staking, cross-chain entanglement, non-inflationary rewards.⚛️',
     url: 'https://qtmtoken.com',
     siteName: 'Quantum Token',
     images: [
       {
         url: '/og-image.png',
-        width: 1200,
-        height: 630,
+        width: 1730,
+        height: 909,
         alt: "Quantum Token (QTM) - Where Quantum Physics Meets DeFi",
       },
     ],
@@ -38,7 +38,7 @@ export const metadata = {
   // Twitter/X Card
   twitter: {
     card: 'summary_large_image',
-    title: 'Quantum Token - First Quantum DeFi Protocol',
+    title: 'Quantum Token QTM - First Quantum DeFi Protocol',
     description: 'Real quantum mechanics in DeFi. Probabilistic staking, cross-chain entanglement, non-inflationary rewards.',
     site: '@QuantumDefiQTM',
     creator: '@QuantumDefiQTM',
