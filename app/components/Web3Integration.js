@@ -491,8 +491,17 @@ export default function Web3Integration() {
       await loadV2StakingData()
       setTimeout(() => setSuccess(''), 5000)
     } catch (executeError) {
-      setError(`Withdrawal failed: ${executeError.message}`)
-    } finally {
+      if (executeError.message.includes('Time-lock not expired')) {
+        setError('The 2-hour security delay has not passed yet. Please wait before executing.')
+      } else if (executeError.message.includes('No withdrawal request')) {
+        setError('Please request withdrawal first, then wait 2 hours.')
+      } else if (executeError.message.includes('Already executed')) {
+        setError('This withdrawal has already been processed.')
+      } else {
+        setError('Withdrawal execution failed. Please try again.')
+      } 
+    }
+  finally {
       setLoading(false)
     }
   }
