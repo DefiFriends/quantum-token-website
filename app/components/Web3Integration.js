@@ -987,6 +987,15 @@ export default function Web3Integration() {
                                         Request Withdrawal
                                       </button>
                                     )}
+                                    {stake.active && (
+                                      <button
+                                        onClick={() => executeV2Withdrawal(stake.index)}
+                                        disabled={loading}
+                                        className="block text-green-400 hover:text-green-300 text-xs"
+                                      >
+                                        Execute Withdrawal
+                                      </button>
+                                    )}
                                   </td>
                                 </tr>
                               ))}
