@@ -18,7 +18,7 @@ items: [
 "✅ Smart contract development",
 "✅ Community building",
 "✅ Token launch",
-"🔄 Basic staking pools",
+"✅ Basic staking pools",
 "📋 Security audits"
 ]
 },

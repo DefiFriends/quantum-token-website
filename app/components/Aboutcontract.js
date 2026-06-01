@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 
 
-const STAKING_CONTRACT_ADDRESS = "0xC7238b4b297fcf63f90EC1843b7d64E0c155d950";
+const STAKING_CONTRACT_ADDRESS = "0x23eDd2D201D647870f2eC6fe7D1505Ccc95df8aF";
 const CONTRACT_ADDRESS = "0x46D1Dc0753F202b70851E195c1d14CEA4a7D78b3"
 
 export default function AboutContract() {
