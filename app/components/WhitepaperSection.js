@@ -229,12 +229,12 @@ Deep dive into the quantum mechanics behind our revolutionary DeFi ecosystem
 </p>
 
 <motion.button
-onClick={downloadWhitepaper}
+onClick={() => window.open('/whitepaper.html')}
 className="quantum-button text-lg px-8 py-4 mb-8"
 whileHover={{ scale: 1.05, y: -2 }}
 whileTap={{ scale: 0.95 }}
 >
-📄 Download Full Whitepaper
+📄 Read Whitepaper
 </motion.button>
 </motion.div>
 

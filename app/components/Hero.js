@@ -88,7 +88,7 @@ export default function Hero() {
             Join the Revolution
             </motion.button>
           <motion.button
-            onClick={() => window.open('/whitepaper.pdf', '_blank')}
+            onClick={() => window.open('/whitepaper.html', '_blank')}
               className="border-2 border-blue-500 px-8 py-4 rounded-full text-blue-400 font-semibold text-lg hover:bg-blue-500/10 transition-all duration-300"
             whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
