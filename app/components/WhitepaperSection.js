@@ -185,32 +185,7 @@ disclaimer: "QTM tokens are utility tokens designed for ecosystem participation.
 }
 ]
 
-const downloadWhitepaper = () => {
-// Create a more detailed PDF-ready content
-const pdfContent = `
-QUANTUM TOKEN (QTM) WHITEPAPER
 
-${whitepaperSections.map(section => `
-${section.title.toUpperCase()}
-${'='.repeat(section.title.length)}
-
-${JSON.stringify(section.content, null, 2)}
-`).join('\n')}
-
-Generated on: ${new Date().toLocaleDateString()}
-`;
-
-const blob = new Blob([pdfContent], { type: 'text/plain' })
-const url = URL.createObjectURL(blob)
-const a = document.createElement('a')
-a.href = url
-a.download = 'Quantum-Token-Whitepaper.txt'
-document.body.appendChild(a)
-a.click()
-document.body.removeChild(a)
-URL.revokeObjectURL(url)
-
-}
 
 return (
 <section id="whitepaper" className="quantum-section bg-gray-900/30">
