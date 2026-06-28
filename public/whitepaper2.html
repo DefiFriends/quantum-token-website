@@ -1,0 +1,862 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#07111f" />
+  <title>Quantum Token QTM Technical Whitepaper v2.0</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@500;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #07111f;
+      --bg-2: #0b1728;
+      --surface: rgba(11, 23, 40, 0.74);
+      --surface-2: rgba(8, 18, 32, 0.92);
+      --border: rgba(126, 183, 255, 0.18);
+      --border-strong: rgba(126, 183, 255, 0.32);
+      --text: #edf5ff;
+      --muted: #9ab0cc;
+      --muted-2: #6e84a2;
+      --blue: #5ed6ff;
+      --cyan: #69ffd8;
+      --purple: #9b7bff;
+      --gold: #ffd36d;
+      --danger: #ff7f8a;
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+      --radius: 22px;
+      --radius-sm: 16px;
+      --max: 1120px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(94, 214, 255, 0.12), transparent 34%),
+        radial-gradient(circle at top right, rgba(155, 123, 255, 0.10), transparent 28%),
+        radial-gradient(circle at 50% 0%, rgba(105, 255, 216, 0.08), transparent 22%),
+        linear-gradient(180deg, #050b14 0%, var(--bg) 32%, #050a12 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(circle at center, black 35%, transparent 100%);
+      opacity: 0.35;
+      z-index: 0;
+    }
+
+    #canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.85;
+    }
+
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 72px 20px 56px;
+    }
+
+    .hero-card {
+      width: min(100%, 980px);
+      padding: 42px 28px 34px;
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      background: linear-gradient(180deg, rgba(12, 25, 45, 0.82), rgba(6, 12, 24, 0.88));
+      backdrop-filter: blur(18px);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, rgba(94, 214, 255, 0.10), transparent 30%, transparent 70%, rgba(155, 123, 255, 0.10));
+      pointer-events: none;
+    }
+
+    .logo {
+      width: 132px;
+      height: 132px;
+      margin: 0 auto 28px;
+      filter: drop-shadow(0 0 28px rgba(94, 214, 255, 0.35));
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+      font: 700 12px/1 'Space Mono', monospace;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 16px;
+      opacity: 0.95;
+    }
+
+    .eyebrow::before, .eyebrow::after {
+      content: '';
+      width: 28px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+    }
+
+    .title {
+      margin: 0;
+      font-family: Orbitron, sans-serif;
+      font-size: clamp(2.4rem, 7vw, 5rem);
+      line-height: 0.98;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #ffffff 0%, var(--blue) 35%, var(--purple) 68%, var(--cyan) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .subtitle {
+      margin: 14px 0 0;
+      font: 500 clamp(0.95rem, 2vw, 1.12rem)/1.7 Inter, sans-serif;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .meta {
+      margin: 18px 0 0;
+      font: 400 12px/1.7 'Space Mono', monospace;
+      color: var(--muted-2);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 34px;
+    }
+
+    .stat {
+      padding: 18px 16px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: rgba(8, 18, 32, 0.72);
+    }
+
+    .stat strong {
+      display: block;
+      font-family: Orbitron, sans-serif;
+      font-size: clamp(1rem, 2vw, 1.35rem);
+      color: var(--blue);
+      margin-bottom: 6px;
+    }
+
+    .stat span {
+      font-size: 11px;
+      color: var(--muted-2);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .toc, .section, .footer {
+      margin-top: 28px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(12, 25, 45, 0.75), rgba(7, 14, 26, 0.86));
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow);
+    }
+
+    .toc { padding: 28px; }
+    .toc-title, .section-number {
+      font: 700 12px/1 'Space Mono', monospace;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 16px;
+    }
+
+    .toc-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px 18px;
+    }
+
+    .toc-list a {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      color: var(--text);
+      text-decoration: none;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid transparent;
+      background: rgba(255,255,255,0.02);
+      transition: 0.25s ease;
+    }
+
+    .toc-list a:hover {
+      transform: translateY(-2px);
+      border-color: var(--border-strong);
+      background: rgba(94, 214, 255, 0.06);
+    }
+
+    .toc-list span {
+      font: 700 11px/1 'Space Mono', monospace;
+      color: var(--blue);
+      min-width: 26px;
+      opacity: 0.95;
+    }
+
+    .section {
+      padding: 30px 28px 28px;
+    }
+
+    .section-title {
+      margin: 0 0 18px;
+      font-family: Orbitron, sans-serif;
+      font-size: clamp(1.15rem, 2.5vw, 1.7rem);
+      letter-spacing: 0.05em;
+      color: var(--text);
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-title span { color: var(--blue); }
+
+    p {
+      color: var(--muted);
+      line-height: 1.9;
+      font-size: 15px;
+      margin: 0 0 16px;
+    }
+
+    strong { color: var(--text); }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin: 26px 0;
+    }
+
+    .card {
+      position: relative;
+      padding: 22px;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+      overflow: hidden;
+      transition: 0.25s ease;
+    }
+
+    .card:hover { transform: translateY(-3px); border-color: var(--border-strong); }
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0 auto auto 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--blue), var(--purple), var(--cyan));
+    }
+
+    .card h3, .principle-title {
+      margin: 0 0 10px;
+      font-family: Orbitron, sans-serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--blue);
+    }
+
+    .icon {
+      font-size: 1.6rem;
+      margin-bottom: 12px;
+      display: inline-block;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      margin: 22px 0;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: rgba(4, 10, 18, 0.45);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 640px;
+    }
+
+    th, td {
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 1px solid rgba(126, 183, 255, 0.10);
+      font-size: 14px;
+    }
+
+    th {
+      font: 700 11px/1.2 'Space Mono', monospace;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      background: rgba(94, 214, 255, 0.05);
+    }
+
+    td { color: var(--muted); }
+    tr:hover td { background: rgba(94, 214, 255, 0.03); }
+    .highlight-row td { color: var(--cyan); }
+
+    .contract-box {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+      padding: 18px 20px;
+      margin: 14px 0;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: rgba(94, 214, 255, 0.04);
+    }
+
+    .contract-label {
+      font: 700 11px/1 'Space Mono', monospace;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      white-space: nowrap;
+    }
+
+    .contract-address {
+      font: 400 13px/1.5 'Space Mono', monospace;
+      color: var(--text);
+      word-break: break-all;
+      flex: 1;
+    }
+
+    .verified-badge {
+      font: 700 10px/1 'Space Mono', monospace;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #8fffd4;
+      border: 1px solid rgba(143, 255, 212, 0.35);
+      padding: 7px 10px;
+      border-radius: 999px;
+    }
+
+    .roadmap {
+      position: relative;
+      padding-left: 28px;
+      margin-top: 18px;
+    }
+
+    .roadmap::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 4px;
+      bottom: 4px;
+      width: 1px;
+      background: linear-gradient(180deg, var(--blue), transparent);
+    }
+
+    .roadmap-item {
+      position: relative;
+      margin-bottom: 26px;
+    }
+
+    .roadmap-item::before {
+      content: '';
+      position: absolute;
+      left: -24px;
+      top: 8px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--blue);
+      box-shadow: 0 0 16px rgba(94, 214, 255, 0.55);
+    }
+
+    .roadmap-item.done::before {
+      background: var(--cyan);
+      box-shadow: 0 0 16px rgba(105, 255, 216, 0.55);
+    }
+
+    .roadmap-quarter {
+      margin: 0 0 10px;
+      font-family: Orbitron, sans-serif;
+      font-size: 0.95rem;
+      color: var(--blue);
+      letter-spacing: 0.1em;
+    }
+
+    .roadmap-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .roadmap-list li {
+      color: var(--muted);
+      padding: 4px 0;
+      font-size: 14px;
+    }
+
+    .roadmap-list li.done { color: var(--cyan); }
+
+    .formula-box {
+      padding: 22px;
+      text-align: center;
+      border: 1px solid rgba(155, 123, 255, 0.28);
+      border-radius: 18px;
+      background: rgba(155, 123, 255, 0.10);
+      color: var(--cyan);
+      font: 700 16px/1.7 'Space Mono', monospace;
+      letter-spacing: 0.05em;
+      margin: 20px 0;
+    }
+
+    .security-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      margin: 20px 0;
+    }
+
+    .security-item {
+      padding: 16px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .disclaimer {
+      margin-top: 24px;
+      padding: 20px;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 127, 138, 0.22);
+      background: rgba(255, 127, 138, 0.06);
+    }
+
+    .disclaimer p { color: rgba(255, 220, 225, 0.72); }
+
+    .footer {
+      text-align: center;
+      padding: 34px 22px;
+      margin-bottom: 18px;
+    }
+
+    .footer-logo {
+      font-family: Orbitron, sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, var(--blue), var(--purple), var(--cyan));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 8px;
+    }
+
+    .footer-text {
+      font: 400 11px/1.7 'Space Mono', monospace;
+      letter-spacing: 0.16em;
+      color: var(--muted-2);
+      text-transform: uppercase;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 900px) {
+      .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .toc-list { grid-template-columns: 1fr; }
+      .hero { min-height: auto; padding-top: 48px; }
+    }
+
+    @media (max-width: 640px) {
+      .wrapper { padding: 0 16px 64px; }
+      .hero-card, .toc, .section, .footer { border-radius: 20px; }
+      .hero-card { padding: 30px 18px 24px; }
+      .section { padding: 24px 18px 22px; }
+      .toc { padding: 22px 18px; }
+      .stats { grid-template-columns: 1fr; }
+      p { font-size: 14px; }
+      th, td { padding: 12px 12px; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <div class="wrapper">
+    <section class="hero">
+      <div class="hero-card reveal visible">
+        <svg class="logo" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-label="Quantum Token logo">
+          <defs>
+            <radialGradient id="g" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#5ed6ff" stop-opacity="0.34" />
+              <stop offset="100%" stop-color="#9b7bff" stop-opacity="0" />
+            </radialGradient>
+          </defs>
+          <circle cx="100" cy="100" r="90" fill="url(#g)" stroke="#5ed6ff" stroke-width="1" opacity="0.5"/>
+          <circle cx="100" cy="100" r="68" fill="none" stroke="#9b7bff" stroke-width="0.7" stroke-dasharray="5 5" opacity="0.5"/>
+          <circle cx="100" cy="100" r="42" fill="none" stroke="#69ffd8" stroke-width="1" opacity="0.65"/>
+          <circle cx="64" cy="66" r="4" fill="#5ed6ff" opacity="0.9"/>
+          <circle cx="140" cy="64" r="4" fill="#9b7bff" opacity="0.9"/>
+          <circle cx="100" cy="154" r="4" fill="#69ffd8" opacity="0.9"/>
+          <text x="100" y="113" text-anchor="middle" font-size="70" font-family="Georgia, serif" fill="#edf5ff">Q</text>
+        </svg>
+        <div class="eyebrow">Technical Whitepaper</div>
+        <h1 class="title">Quantum Token</h1>
+        <p class="subtitle">QTM Protocol v2.0</p>
+        <p class="meta">JUNE 2026 • ETHEREUM • SEPOLIA TESTNET</p>
+        <div class="stats">
+          <div class="stat"><strong>42.4B</strong><span>Fixed Supply</span></div>
+          <div class="stat"><strong>12-24</strong><span>Quantum APY</span></div>
+          <div class="stat"><strong>2</strong><span>Live Contracts</span></div>
+          <div class="stat"><strong>2027</strong><span>Full Ecosystem</span></div>
+        </div>
+      </div>
+    </section>
+
+    <nav class="toc reveal" aria-label="Contents">
+      <div class="toc-title">Contents</div>
+      <ul class="toc-list">
+        <li><a href="#s1"><span>01</span> Executive Summary</a></li>
+        <li><a href="#s2"><span>02</span> The Problem</a></li>
+        <li><a href="#s3"><span>03</span> The Quantum Approach</a></li>
+        <li><a href="#s4"><span>04</span> Staking Mechanism</a></li>
+        <li><a href="#s5"><span>05</span> Tokenomics</a></li>
+        <li><a href="#s6"><span>06</span> Presale Structure</a></li>
+        <li><a href="#s7"><span>07</span> Pioneer Program</a></li>
+        <li><a href="#s8"><span>08</span> PARADOX Integration</a></li>
+        <li><a href="#s9"><span>09</span> Smart Contracts</a></li>
+        <li><a href="#s10"><span>10</span> Roadmap</a></li>
+        <li><a href="#s11"><span>11</span> Team</a></li>
+        <li><a href="#s12"><span>12</span> Security</a></li>
+      </ul>
+    </nav>
+
+    <section class="section reveal" id="s1">
+      <div class="section-number">Section 01</div>
+      <h2 class="section-title">Executive <span>Summary</span></h2>
+      <p>Quantum Token QTM is a decentralized finance protocol built on Ethereum that applies quantum mechanics principles to staking reward distribution. Unlike conventional staking systems that offer fixed APY rates, QTM implements probabilistic reward calculations inspired by Heisenberg's Uncertainty Principle and Schrödinger's superposition theory.</p>
+      <p>The project is currently in active testnet phase on Ethereum Sepolia, with two verified smart contracts live and operational. Mainnet deployment follows a professional security audit. The PARADOX companion token on Solana is in early development, targeting Q4 2026.</p>
+      <div class="grid">
+        <div class="card"><div class="icon">⚛️</div><h3>Non-Inflationary</h3><p>Fixed supply of 42,424,242,424 QTM. No minting function. Staking rewards come from designated allocation, not new tokens.</p></div>
+        <div class="card"><div class="icon">🌐</div><h3>Quantum Rewards</h3><p>APY exists in superposition 12-24 until claimed. Probability distribution shifts based on stake duration and network entropy.</p></div>
+        <div class="card"><div class="icon">✅</div><h3>Verified Contracts</h3><p>Both contracts verified on Etherscan. Source code publicly readable. No proxy contracts. No hidden admin functions.</p></div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="s2">
+      <div class="section-number">Section 02</div>
+      <h2 class="section-title">The <span>Problem</span></h2>
+      <p>Most DeFi staking protocols offer fixed APY rates. This creates a predictable and damaging pattern: rational actors calculate the optimal exit point and unstake simultaneously, generating coordinated sell pressure that destabilizes token price and penalizes long-term holders.</p>
+      <p>Fixed reward systems also fail to reflect the actual complexity of network conditions, liquidity dynamics, and time-commitment value. A user staking for 30 days and another staking for 180 days receive proportionally similar treatment despite fundamentally different levels of commitment to the ecosystem.</p>
+      <p>The result is a system that inadvertently rewards short-term thinking and punishes patience — the opposite of what a healthy DeFi ecosystem requires.</p>
+    </section>
+
+    <section class="section reveal" id="s3">
+      <div class="section-number">Section 03</div>
+      <h2 class="section-title">The Quantum <span>Approach</span></h2>
+      <p>Quantum Token introduces probabilistic reward distribution based on three quantum mechanics principles applied as mathematical models to staking economics.</p>
+      <div class="grid">
+        <div class="card"><div class="icon">∿</div><h3>Heisenberg Uncertainty</h3><p>The exact reward cannot be predetermined. It exists as a probability distribution until the moment of observation claiming. Certainty is replaced by weighted probability.</p></div>
+        <div class="card"><div class="icon">◌</div><h3>Schrödinger Superposition</h3><p>Your APY exists across all possible values 12 through 24 until you claim. Claiming collapses the superposition into a single realized reward.</p></div>
+        <div class="card"><div class="icon">◈</div><h3>Quantum State Coefficient</h3><p>Each stake is assigned a unique quantum state from network entropy, stake amount, tier selection, and total network activity.</p></div>
+      </div>
+      <p>This is not arbitrary randomness. <strong>Random</strong> means equal probability of all outcomes. <strong>Quantum</strong> means weighted probability that shifts based on observable variables. You can improve your odds through longer commitment. You cannot guarantee the outcome.</p>
+      <p>The practical effect: natural distribution of exit points rather than coordinated unstaking events. Healthier price action. Genuine reward for patience.</p>
+    </section>
+
+    <section class="section reveal" id="s4">
+      <div class="section-number">Section 04</div>
+      <h2 class="section-title">Staking <span>Mechanism</span></h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Tier</th><th>Duration</th><th>APY Range</th><th>Max APY Probability</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>30 days</td><td>12-24</td><td>Base probability</td></tr>
+            <tr><td>2</td><td>90 days</td><td>12-24</td><td>Medium probability</td></tr>
+            <tr class="highlight-row"><td>3</td><td>180 days</td><td>12-24</td><td>Highest probability</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Longer commitment increases the probability of reaching maximum APY. The range is the same across all tiers; what changes is how likely you are to reach the upper end.</p>
+      <div class="table-wrap">
+        <table>
+          <tbody>
+            <tr><td>1</td><td>Stake tokens in chosen tier.</td></tr>
+            <tr><td>2</td><td>Wait for lock period to expire: 30, 90, or 180 days.</td></tr>
+            <tr><td>3</td><td>Submit withdrawal request on-chain.</td></tr>
+            <tr><td>4</td><td>Wait 2-hour security time-lock.</td></tr>
+            <tr><td>5</td><td>Execute withdrawal and receive principal plus quantum rewards.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><strong>Withdrawal Flow v2.0</strong> uses a 2-hour time-lock to prevent flash loan attacks. It is the only delay between a user and their funds after the staking period ends. No admin approval is required to withdraw.</p>
+      <div class="security-grid">
+        <div class="security-item">ReentrancyGuard on all critical functions</div>
+        <div class="security-item">2-hour time-lock on withdrawals</div>
+        <div class="security-item">Emergency pause owner only</div>
+        <div class="security-item">Non-custodial design</div>
+        <div class="security-item">Fixed supply, no mint function</div>
+        <div class="security-item">Public verified source code</div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="s5">
+      <div class="section-number">Section 05</div>
+      <h2 class="section-title">Tokeno<span>mics</span></h2>
+      <p><strong>Total Supply: 42,424,242,424 QTM. Fixed forever.</strong></p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Allocation</th><th>%</th><th>Amount</th><th>Purpose</th></tr></thead>
+          <tbody>
+            <tr><td>Public Presale</td><td>27</td><td>11.5B QTM</td><td>Multi-phase presale</td></tr>
+            <tr><td>Liquidity Pool</td><td>25</td><td>10.6B QTM</td><td>DEX liquidity</td></tr>
+            <tr><td>Team</td><td>15</td><td>6.4B QTM</td><td>2-year vesting, 6-month cliff</td></tr>
+            <tr><td>Staking Rewards</td><td>10</td><td>4.2B QTM</td><td>Staking yield source</td></tr>
+            <tr><td>Development</td><td>10</td><td>4.2B QTM</td><td>Ongoing development</td></tr>
+            <tr class="highlight-row"><td>Pioneer Program</td><td>5</td><td>2.1B QTM</td><td>Community contributors</td></tr>
+            <tr><td>Cross-Chain Reserve</td><td>5</td><td>2.1B QTM</td><td>PARADOX bridge liquidity</td></tr>
+            <tr><td>Reserve Fund</td><td>3</td><td>1.3B QTM</td><td>Emergency and future use</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Staking rewards are sourced from the designated 10% allocation, not from minting new tokens. When you earn staking rewards, your percentage of the fixed total supply increases. Non-stakers are diluted proportionally. This is real yield, not inflation.</p>
+    </section>
+
+    <section class="section reveal" id="s6">
+      <div class="section-number">Section 06</div>
+      <h2 class="section-title">Presale <span>Structure</span></h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Phase</th><th>Name</th><th>Price</th><th>Bonus</th><th>Access</th></tr></thead>
+          <tbody>
+            <tr class="highlight-row"><td>Phase 0</td><td>Quantum Pioneers</td><td>0.000001 ETH</td><td>20%</td><td>Whitelist only</td></tr>
+            <tr><td>Phase 1</td><td>Probability Wave</td><td>0.0000015 ETH</td><td>10%</td><td>Whitelist only</td></tr>
+            <tr><td>Phase 2</td><td>Observer Effect</td><td>0.000002 ETH</td><td>5%</td><td>Public</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>At the same 100 investment, Phase 0 participants receive approximately 19x more tokens than Phase 2 participants. Phase 0 also includes priority access to PARADOX presale when that token launches.</p>
+    </section>
+
+    <section class="section reveal" id="s7">
+      <div class="section-number">Section 07</div>
+      <h2 class="section-title">Pioneer <span>Program</span></h2>
+      <p>5% of total supply — 2,100,000,000 QTM — is reserved for community contributors. No investment required. Contribution is the only requirement.</p>
+      <div class="formula-box">Your Points / Total Points × 2,100,000,000 = Your QTM Allocation</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Contribution Type</th><th>Points Range</th></tr></thead>
+          <tbody>
+            <tr><td>Testnet participation and bug reports</td><td>100 - 5,000</td></tr>
+            <tr><td>Educational content creation</td><td>500 - 2,000</td></tr>
+            <tr><td>Video tutorials</td><td>1,000 - 5,000</td></tr>
+            <tr><td>Community support and onboarding</td><td>100 per person helped</td></tr>
+            <tr><td>Technical contributions and tools</td><td>1,000 - 10,000</td></tr>
+            <tr><td>Critical bug discovery</td><td>Up to 10,000</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Points are tracked publicly on the Pioneer leaderboard. At mainnet launch, points convert to QTM allocations. Early contributors earn more because competition is lower and point value is higher.</p>
+    </section>
+
+    <section class="section reveal" id="s8">
+      <div class="section-number">Section 08</div>
+      <h2 class="section-title">PARADOX <span>Integration</span></h2>
+      <p>PARADOX is a planned companion token on the Solana blockchain. The concept is cross-chain entanglement: activity on one chain influences reward conditions on the other, without a traditional bridge.</p>
+      <div class="grid">
+        <div class="card"><div class="icon">🛡️</div><h3>No Bridge Risk</h3><p>Cross-chain bridges have lost over 2.8B to exploits. PARADOX uses Wormhole messaging for state synchronization only. Tokens remain native to their chains.</p></div>
+        <div class="card"><div class="icon">🔗</div><h3>Entanglement Mechanics</h3><p>QTM staking activity influences PARADOX reward distribution. PARADOX trading volume contributes to QTM staking yield. Two ecosystems, one quantum state.</p></div>
+      </div>
+      <p><strong>Current status:</strong> In development. Solana devnet deployment planned Q4 2026. This feature will not activate until both contracts pass independent audits.</p>
+    </section>
+
+    <section class="section reveal" id="s9">
+      <div class="section-number">Section 09</div>
+      <h2 class="section-title">Smart <span>Contracts</span></h2>
+      <div class="contract-box"><span class="contract-label">Token</span><span class="contract-address">0x46D1Dc0753F202b70851E195c1d14CEA4a7D78b3</span><span class="verified-badge">VERIFIED</span></div>
+      <div class="contract-box"><span class="contract-label">Staking v2</span><span class="contract-address">0xC7238b4b297fcf63f90EC1843b7d64E0c155d950</span><span class="verified-badge">VERIFIED</span></div>
+      <p>Both contracts are verified on Etherscan. Source code is publicly readable at any time. No proxy contracts. No upgrade mechanisms that could alter behavior without redeployment. The only privileged function beyond standard ownership is emergency pause.</p>
+    </section>
+
+    <section class="section reveal" id="s10">
+      <div class="section-number">Section 10</div>
+      <h2 class="section-title">Road<span>map</span></h2>
+      <div class="roadmap">
+        <div class="roadmap-item done">
+          <h3 class="roadmap-quarter">Q2-Q3 2026 — Current</h3>
+          <ul class="roadmap-list">
+            <li class="done">Token contract deployed and verified</li>
+            <li class="done">Staking v2.0 deployed and verified</li>
+            <li class="done">Website live at qtmtoken.com</li>
+            <li class="done">Pioneer Program active</li>
+            <li class="done">Community testnet phase open</li>
+            <li>Security audit in preparation</li>
+          </ul>
+        </div>
+        <div class="roadmap-item">
+          <h3 class="roadmap-quarter">Q4 2026</h3>
+          <ul class="roadmap-list">
+            <li>Mainnet deployment post-audit</li>
+            <li>DEX listing and liquidity provision</li>
+            <li>PARADOX token Solana devnet</li>
+            <li>Staking platform mainnet launch</li>
+          </ul>
+        </div>
+        <div class="roadmap-item">
+          <h3 class="roadmap-quarter">Q1 2027</h3>
+          <ul class="roadmap-list">
+            <li>PARADOX token mainnet launch</li>
+            <li>Cross-chain entanglement activation</li>
+            <li>Expanded Pioneer Program</li>
+          </ul>
+        </div>
+        <div class="roadmap-item">
+          <h3 class="roadmap-quarter">Q2 2027</h3>
+          <ul class="roadmap-list">
+            <li>Governance implementation</li>
+            <li>Advanced DeFi features</li>
+            <li>Ecosystem partnerships</li>
+            <li>Educational platform</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="s11">
+      <div class="section-number">Section 11</div>
+      <h2 class="section-title">Team</h2>
+      <div class="grid">
+        <div class="card"><div class="icon">👤</div><h3>Andrej Nice</h3><p>Founder and CEO. Background in network and systems administration. Responsible for project direction, community building, and business development.</p></div>
+        <div class="card"><div class="icon">🧠</div><h3>TechCEO</h3><p>Technical co-founder. Smart contract architecture, quantum mechanics implementation, full-stack development. Identity revealed at PARADOX token launch.</p></div>
+      </div>
+      <p>No venture capital. No external investors. No paid advisors. This is a bootstrapped project. That is reflected in both the pace of development and the integrity of decisions made along the way.</p>
+    </section>
+
+    <section class="section reveal" id="s12">
+      <div class="section-number">Section 12</div>
+      <h2 class="section-title">Security</h2>
+      <p>We will not deploy to mainnet without a completed third-party security audit. This is not a soft commitment; it is a hard requirement we have set for ourselves regardless of community or market pressure.</p>
+      <div class="security-grid">
+        <div class="security-item">ReentrancyGuard on all state-changing functions</div>
+        <div class="security-item">2-hour time-locked withdrawals</div>
+        <div class="security-item">Pausable for emergency response</div>
+        <div class="security-item">Fixed total supply, no mint function</div>
+        <div class="security-item">Public verified source code on Etherscan</div>
+        <div class="security-item">No proxy contracts or upgrade paths</div>
+      </div>
+      <p>The audit report will be published in full before mainnet deployment. Any identified issues will be resolved and re-audited if necessary.</p>
+      <div class="disclaimer">
+        <p><strong style="color: rgba(255, 190, 196, 0.92);">Legal Disclaimer</strong></p>
+        <p>QTM tokens are utility tokens designed for ecosystem participation within the Quantum Token protocol. This document does not constitute investment advice, financial advice, or a solicitation to purchase securities.</p>
+        <p>Cryptocurrency investments carry significant risk including total loss of capital. Past performance does not indicate future results. Participants should conduct independent research and consult qualified financial advisors before making any investment decisions.</p>
+        <p>Smart contracts, despite auditing, may contain vulnerabilities. Users interact with the protocol at their own risk. This project is not affiliated with any quantum computing company or research institution.</p>
+      </div>
+    </section>
+
+    <footer class="footer reveal">
+      <div class="footer-logo">Quantum Token</div>
+      <div class="footer-text">WHITEPAPER v2.0 • JUNE 2026 • QTMTOKEN.COM</div>
+    </footer>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    let w, h;
+
+    function resize() { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resize); resize();
+
+    const particles = Array.from({ length: 72 }, () => ({
+      x: Math.random() * w, y: Math.random() * h,
+      vx: (Math.random() - 0.5) * 0.35, vy: (Math.random() - 0.5) * 0.35,
+      r: Math.random() * 1.6 + 0.5, c: Math.random() > 0.5 ? '#5ed6ff' : '#9b7bff', o: Math.random() * 0.45 + 0.08
+    }));
+
+    function tick() {
+      ctx.clearRect(0, 0, w, h);
+      particles.forEach(p => {
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0) p.x = w; if (p.x > w) p.x = 0;
+        if (p.y < 0) p.y = h; if (p.y > h) p.y = 0;
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = p.c; ctx.globalAlpha = p.o; ctx.fill();
+      });
+      ctx.globalAlpha = 1;
+      particles.forEach((a, i) => particles.slice(i + 1).forEach(b => {
+        const dx = a.x - b.x, dy = a.y - b.y, d = Math.hypot(dx, dy);
+        if (d < 125) {
+          ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
+          ctx.strokeStyle = '#5ed6ff'; ctx.globalAlpha = (1 - d / 125) * 0.08; ctx.lineWidth = 0.6; ctx.stroke();
+        }
+      }));
+      requestAnimationFrame(tick);
+    }
+    tick();
+
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
