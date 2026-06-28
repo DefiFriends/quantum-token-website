@@ -76,7 +76,6 @@ return (
 {/* Background */}
 <div className="absolute inset-0 bg-gradient-to-b from-gray-900 via-blue-900/20 to-gray-900"></div>
 
-```
 <div className="container mx-auto px-6 relative z-10">
 
 {/* Header */}
