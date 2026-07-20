@@ -64,11 +64,11 @@ const specialBonuses = [
 
 // Sample leaderboard data (will be replaced with real data in Step 3)
 const leaderboardSample = [
-{ rank: 1, name: "Lesi_Crypt", points: 12300, contributions: 9 },
-{ rank: 2, name: "Adex_014", points: 7000, contributions: 4 },
+{ rank: 1, name: "Lesi_Crypt", points: 12300, contributions: 17 },
+{ rank: 2, name: "Adex_014", points: 7000, contributions: 7 },
 { rank: 3, name: "Silver", points: 4600, contributions: 3 },
-{ rank: 4, name: "JudmentSheep", points: 3500, contributions: 2 },
-{ rank: 5, name: "Dynimite_590/Sahimex", points: 3200, contributions: 1 }
+{ rank: 4, name: "JudmentSheep", points: 3500, contributions: 5 },
+{ rank: 5, name: "Dynimite_590/Sahimex", points: 3200, contributions: 3/4 }
 ]
 
 return (
