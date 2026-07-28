@@ -64,11 +64,11 @@ const specialBonuses = [
 
 // Sample leaderboard data (will be replaced with real data in Step 3)
 const leaderboardSample = [
-{ rank: 1, name: "Lesi_Crypt", points: 12300, contributions: 17 },
-{ rank: 2, name: "Adex_014", points: 7000, contributions: 7 },
-{ rank: 3, name: "Silver", points: 4600, contributions: 3 },
-{ rank: 4, name: "JudmentSheep", points: 3500, contributions: 5 },
-{ rank: 5, name: "Dynimite_590/Sahimex", points: 3200, contributions: 3/4 }
+{ rank: 1, name: "Lesi_Crypt", points: 30100, contributions: 19 },
+{ rank: 2, name: "Sahimex", points: 28350, contributions: 5 },
+{ rank: 3, name: "Silver", points: 21150, contributions: 4 },
+{ rank: 4, name: "Adex_014", points: 11600, contributions: 9 },
+{ rank: 5, name: "Dynimite_590", points: 5800, contributions: 4 }
 ]
 
 return (
@@ -117,8 +117,8 @@ transition={{ duration: 0.8, delay: 0.2 }}
 >
 {[
 { label: "Total Allocation", value: "2.1B QTM", icon: "💎" },
-{ label: "Active Pioneers", value: "14", icon: "👥" },
-{ label: "Total Points", value: "46500", icon: "⭐" },
+{ label: "Active Pioneers", value: "17", icon: "👥" },
+{ label: "Total Points", value: "127650", icon: "⭐" },
 { label: "Time Left", value: "Q4 2026", icon: "⏰" }
 ].map((stat, index) => (
 <motion.div
