@@ -59,7 +59,7 @@ export default function Hero() {
               transition={{ duration: 1, delay: 0.6 }}
             >
               <div className="text-center lg:text-left">
-                <div className="text-2xl md:text-3xl font-bold quantum-text-gradient quantum-pulse">1B</div>
+                <div className="text-2xl md:text-3xl font-bold quantum-text-gradient quantum-pulse">42.4B</div>
                 <div className="text-sm text-gray-400">Total Supply</div>
               </div>
               <div className="text-center lg:text-left">
