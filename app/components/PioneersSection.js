@@ -58,27 +58,29 @@ export default function PioneersSection() {
   ]
 
   const leaderboardSample = [
-    { rank: 1, name: "BIG LESI", points: 69700, contributions: 24 },
-    { rank: 2, name: "Crypt The Great", points: 62450, contributions: 9 },
-    { rank: 3, name: "Silver", points: 58400, contributions: 8 },
+    { rank: 1, name: "BIG LESI", points: 76700, contributions: 25 },
+    { rank: 2, name: "Crypt The Great", points: 70250, contributions: 10 },
+    { rank: 3, name: "Silver", points: 61250, contributions: 9 },
     { rank: 4, name: "Smallriri", points: 57050, contributions: 5 },
-    { rank: 5, name: "Adex_014", points: 31400, contributions: 20 },
+    { rank: 5, name: "Adex_014", points: 33800, contributions: 21 },
     { rank: 6, name: "Radiant", points: 25500, contributions: 4 },
-    { rank: 7, name: "Kimmy", points: 12200, contributions: 4 },
-    { rank: 8, name: "Dynamite", points: 10850, contributions: 7 },
-    { rank: 9, name: "Malpsin", points: 10100, contributions: 2 },
-    { rank: 10, name: "Veektoriea", points: 8000, contributions: 2 },
-    { rank: 11, name: "M Ï K E", points: 7700, contributions: 4 },
-    { rank: 12, name: "@Michealisreal", points: 6150, contributions: 4 },
-    { rank: 13, name: "JudgmentSheep", points: 4900, contributions: 7 },
-    { rank: 14, name: "Joachim", points: 3000, contributions: 3 },
-    { rank: 15, name: "Aysmooth_bjorn", points: 2700, contributions: 2 },
-    { rank: 16, name: "slimchief7", points: 2300, contributions: 1 },
-    { rank: 17, name: "@alphanexus001", points: 2000, contributions: 2 },
-    { rank: 18, name: "Carcal", points: 1250, contributions: 1 },
-    { rank: 19, name: "flacko_crypt", points: 1000, contributions: 1 },
-    { rank: 19, name: "Atomicwhale", points: 1000, contributions: 1 },
-    { rank: 19, name: "Darkrum", points: 1000, contributions: 1 }
+    { rank: 7, name: "Kimmy", points: 16700, contributions: 5 },
+    { rank: 8, name: "Jenn_w3", points: 15600, contributions: 3 },
+    { rank: 9, name: "Dynamite", points: 10850, contributions: 7 },
+    { rank: 10, name: "Malpsin", points: 10100, contributions: 2 },
+    { rank: 11, name: "@Michealisreal", points: 8150, contributions: 5 },
+    { rank: 12, name: "Veektoriea", points: 8000, contributions: 2 },
+    { rank: 13, name: "M Ï K E", points: 7700, contributions: 4 },
+    { rank: 14, name: "Sagitta", points: 5350, contributions: 3 },
+    { rank: 15, name: "JudgmentSheep", points: 4900, contributions: 7 },
+    { rank: 16, name: "Joachim", points: 3000, contributions: 3 },
+    { rank: 17, name: "Aysmooth_bjorn", points: 2700, contributions: 2 },
+    { rank: 18, name: "slimchief7", points: 2300, contributions: 1 },
+    { rank: 19, name: "@alphanexus001", points: 2000, contributions: 2 },
+    { rank: 20, name: "Carcal", points: 1250, contributions: 1 },
+    { rank: 21, name: "flacko_crypt", points: 1000, contributions: 1 },
+    { rank: 21, name: "Atomicwhale", points: 1000, contributions: 1 },
+    { rank: 21, name: "Darkrum", points: 1000, contributions: 1 }
   ]
 
   return (
@@ -125,8 +127,8 @@ export default function PioneersSection() {
           >
             {[
               { label: "Total Allocation", value: "2.1B QTM", icon: "💎" },
-              { label: "Active Pioneers", value: "19", icon: "👥" },
-              { label: "Total Points", value: "378660", icon: "⭐" },
+              { label: "Active Pioneers", value: "23", icon: "👥" },
+              { label: "Total Points", value: "424600", icon: "⭐" },
               { label: "Time Left", value: "Q4 2026", icon: "⏰" }
             ].map((stat, index) => (
               <motion.div
