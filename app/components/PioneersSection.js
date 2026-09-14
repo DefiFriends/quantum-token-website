@@ -58,7 +58,7 @@ export default function PioneersSection() {
   ]
 
   const leaderboardSample = [
-    { rank: 1, name: "BIG LESI", points: 76700, contributions: 25 },
+    { rank: 1, name: "BIG LESI", points: 84500, contributions: 26 },
     { rank: 2, name: "Crypt The Great", points: 70250, contributions: 10 },
     { rank: 3, name: "Silver", points: 61250, contributions: 9 },
     { rank: 4, name: "Smallriri", points: 57050, contributions: 5 },
@@ -67,11 +67,11 @@ export default function PioneersSection() {
     { rank: 7, name: "Kimmy", points: 16700, contributions: 5 },
     { rank: 8, name: "Jenn_w3", points: 15600, contributions: 3 },
     { rank: 9, name: "Dynamite", points: 10850, contributions: 7 },
-    { rank: 10, name: "Malpsin", points: 10100, contributions: 2 },
-    { rank: 11, name: "@Michealisreal", points: 8150, contributions: 5 },
-    { rank: 12, name: "Veektoriea", points: 8000, contributions: 2 },
-    { rank: 13, name: "M Ï K E", points: 7700, contributions: 4 },
-    { rank: 14, name: "Sagitta", points: 5350, contributions: 3 },
+    { rank: 10, name: "Sagitta", points: 5350, contributions: 5 },
+    { rank: 11, name: "Malpsin", points: 10100, contributions: 2 },
+    { rank: 12, name: "@Michealisreal", points: 8150, contributions: 5 },
+    { rank: 13, name: "Veektoriea", points: 8000, contributions: 2 },
+    { rank: 14, name: "M Ï K E", points: 7700, contributions: 4 },
     { rank: 15, name: "JudgmentSheep", points: 4900, contributions: 7 },
     { rank: 16, name: "Joachim", points: 3000, contributions: 3 },
     { rank: 17, name: "Aysmooth_bjorn", points: 2700, contributions: 2 },
@@ -128,7 +128,7 @@ export default function PioneersSection() {
             {[
               { label: "Total Allocation", value: "2.1B QTM", icon: "💎" },
               { label: "Active Pioneers", value: "23", icon: "👥" },
-              { label: "Total Points", value: "424600", icon: "⭐" },
+              { label: "Total Points", value: "437800", icon: "⭐" },
               { label: "Time Left", value: "Q4 2026", icon: "⏰" }
             ].map((stat, index) => (
               <motion.div
