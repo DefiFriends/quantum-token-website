@@ -58,7 +58,7 @@ export default function PioneersSection() {
   ]
 
   const leaderboardSample = [
-    { rank: 1, name: "BIG LESI", points: 84500, contributions: 26 },
+    { rank: 1, name: "BIG LESI", points: 89000, contributions: 27},
     { rank: 2, name: "Crypt The Great", points: 70250, contributions: 10 },
     { rank: 3, name: "Silver", points: 61250, contributions: 9 },
     { rank: 4, name: "Smallriri", points: 57050, contributions: 5 },
@@ -66,8 +66,8 @@ export default function PioneersSection() {
     { rank: 6, name: "Radiant", points: 25500, contributions: 4 },
     { rank: 7, name: "Kimmy", points: 16700, contributions: 5 },
     { rank: 8, name: "Jenn_w3", points: 15600, contributions: 3 },
-    { rank: 9, name: "Dynamite", points: 10850, contributions: 7 },
-    { rank: 10, name: "Sagitta", points: 5350, contributions: 5 },
+    { rank: 9, name: "Dynamite", points: 12850, contributions: 8 },
+    { rank: 10, name: "Sagitta", points: 11000, contributions: 6 },
     { rank: 11, name: "Malpsin", points: 10100, contributions: 2 },
     { rank: 12, name: "@Michealisreal", points: 8150, contributions: 5 },
     { rank: 13, name: "Veektoriea", points: 8000, contributions: 2 },
@@ -80,7 +80,9 @@ export default function PioneersSection() {
     { rank: 20, name: "Carcal", points: 1250, contributions: 1 },
     { rank: 21, name: "flacko_crypt", points: 1000, contributions: 1 },
     { rank: 21, name: "Atomicwhale", points: 1000, contributions: 1 },
-    { rank: 21, name: "Darkrum", points: 1000, contributions: 1 }
+    { rank: 21, name: "Darkrum", points: 1000, contributions: 1 },
+    { rank: 21, name: "Remifreds", points: 1000, contributions: 1 },
+    { rank: 25, name: "OG", points: 700, contributions: 1 }
   ]
 
   return (
@@ -127,8 +129,8 @@ export default function PioneersSection() {
           >
             {[
               { label: "Total Allocation", value: "2.1B QTM", icon: "💎" },
-              { label: "Active Pioneers", value: "23", icon: "👥" },
-              { label: "Total Points", value: "437800", icon: "⭐" },
+              { label: "Active Pioneers", value: "25", icon: "👥" },
+              { label: "Total Points", value: "446500", icon: "⭐" },
               { label: "Time Left", value: "Q4 2026", icon: "⏰" }
             ].map((stat, index) => (
               <motion.div
