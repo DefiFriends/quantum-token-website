@@ -58,16 +58,16 @@ export default function PioneersSection() {
   ]
 
   const leaderboardSample = [
-    { rank: 1, name: "BIG LESI", points: 89000, contributions: 27},
-    { rank: 2, name: "Crypt The Great", points: 70250, contributions: 10 },
+    { rank: 1, name: "BIG LESI", points: 95800, contributions: 28},
+    { rank: 2, name: "Crypt The Great", points: 80150, contributions: 11 },
     { rank: 3, name: "Silver", points: 61250, contributions: 9 },
     { rank: 4, name: "Smallriri", points: 57050, contributions: 5 },
     { rank: 5, name: "Adex_014", points: 33800, contributions: 21 },
     { rank: 6, name: "Radiant", points: 25500, contributions: 4 },
     { rank: 7, name: "Kimmy", points: 16700, contributions: 5 },
-    { rank: 8, name: "Jenn_w3", points: 15600, contributions: 3 },
+    { rank: 8, name: "Jenn_w3", points: 16100, contributions: 4 },
     { rank: 9, name: "Dynamite", points: 12850, contributions: 8 },
-    { rank: 10, name: "Sagitta", points: 11000, contributions: 6 },
+    { rank: 10, name: "Sagitta", points: 12650, contributions: 7 },
     { rank: 11, name: "Malpsin", points: 10100, contributions: 2 },
     { rank: 12, name: "@Michealisreal", points: 8150, contributions: 5 },
     { rank: 13, name: "Veektoriea", points: 8000, contributions: 2 },
@@ -130,7 +130,7 @@ export default function PioneersSection() {
             {[
               { label: "Total Allocation", value: "2.1B QTM", icon: "💎" },
               { label: "Active Pioneers", value: "25", icon: "👥" },
-              { label: "Total Points", value: "446500", icon: "⭐" },
+              { label: "Total Points", value: "464850", icon: "⭐" },
               { label: "Time Left", value: "Q4 2026", icon: "⏰" }
             ].map((stat, index) => (
               <motion.div
