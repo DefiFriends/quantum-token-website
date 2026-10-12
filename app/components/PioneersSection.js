@@ -130,7 +130,7 @@ export default function PioneersSection() {
             {[
               { label: "Total Allocation", value: "2.1B QTM", icon: "💎" },
               { label: "Active Pioneers", value: "25", icon: "👥" },
-              { label: "Total Points", value: "475400", icon: "⭐" },
+              { label: "Total Points", value: "486000", icon: "⭐" },
               { label: "Time Left", value: "Q4 2026", icon: "⏰" }
             ].map((stat, index) => (
               <motion.div
