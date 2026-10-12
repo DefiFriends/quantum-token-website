@@ -58,15 +58,15 @@ export default function PioneersSection() {
   ]
 
   const leaderboardSample = [
-    { rank: 1, name: "BIG LESI", points: 101900, contributions: 29},
+    { rank: 1, name: "BIG LESI", points: 109250, contributions: 30},
     { rank: 2, name: "Crypt The Great", points: 80150, contributions: 11 },
     { rank: 3, name: "Silver", points: 61250, contributions: 9 },
     { rank: 4, name: "Smallriri", points: 57050, contributions: 5 },
     { rank: 5, name: "Adex_014", points: 33800, contributions: 21 },
     { rank: 6, name: "Radiant", points: 25500, contributions: 4 },
     { rank: 7, name: "Kimmy", points: 18400, contributions: 6 },
-    { rank: 8, name: "Jenn_w3", points: 17300, contributions: 5 },
-    { rank: 9, name: "Sagitta", points: 14200, contributions: 8 },
+    { rank: 8, name: "Sagitta", points: 17450, contributions: 9 },
+    { rank: 9, name: "Jenn_w3", points: 17300, contributions: 5 },
     { rank: 10, name: "Dynamite", points: 12850, contributions: 8 },
     { rank: 11, name: "Malpsin", points: 10100, contributions: 2 },
     { rank: 12, name: "@Michealisreal", points: 8150, contributions: 5 },
